@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for share_ads project.
 
@@ -36,7 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'share_ads_main',
+    'south',
+    'advertiser',
+    'publisher',
+    'payment_system',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -46,6 +50,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'share_ads.urls'
@@ -58,8 +63,11 @@ WSGI_APPLICATION = 'share_ads.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+          'ENGINE': 'django.db.backends.postgresql_psycopg2',
+          'NAME': 'foxprojectdb',
+          'USER': 'postgres',
+          'PASSWORD': 'root',
+          'HOST': 'localhost',
     }
 }
 
@@ -80,8 +88,33 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+FILE_UPLOAD_PERMISSIONS = 0644
+
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+# ADMIN_MEDIA_PREFIX = '/static/admin/'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = BASE_DIR + '/media'
+
+LANGUAGES = (
+    ('tr', 'Türkçe'),
+    ('en', 'English'),
+)
+
+# LOCALE_PATHS = (
+#      os.path.join(BASE_DIR, 'conf'),
+#      os.path.join(BASE_DIR, 'locale'),
+# )
+
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR,  'templates'),
+    os.path.join(BASE_DIR, 'templates'),
+    os.path.join(BASE_DIR, 'advertiser/templates'),
+    os.path.join(BASE_DIR, 'publisher/templates'),
+    os.path.join(BASE_DIR, 'share_ads/templates'),
 )
