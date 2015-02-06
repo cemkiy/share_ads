@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul>
+    {% if form_user.errors %}
+        <p>Error</p>
+    {% endif %}
+<form method='POST'>
+    {% csrf_token %}
+    <table border=1>
+        {{ form }}
+        {{ advertiser_form }}
+    </table>
+    <input type='submit' value='Submit'/>
+</form>
+</ul>
+</body>
+</html>
