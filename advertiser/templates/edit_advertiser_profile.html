@@ -6,16 +6,13 @@
 </head>
 <body>
 <ul>
-    {% if form.errors or advertiser_form.errors %}
+    {% if form.errors %}
         <p>{{ form.errors }}</p>
-    {% elif  advertiser_form.errors %}
-        <p>{{ advertiser_form.errors }}</p>
     {% endif %}
-<form method='POST'>
+<form method='POST' enctype="multipart/form-data">
     {% csrf_token %}
     <table border=1>
         {{ form }}
-        {{ advertiser_form }}
     </table>
     <input type='submit' value='Submit'/>
 </form>

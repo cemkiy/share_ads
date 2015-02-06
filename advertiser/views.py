@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from advertiser.forms import new_advertiser_form, user_form, new_campaign_form
+from advertiser.forms import new_advertiser_form, user_form, new_campaign_form, edit_advertiser_profile_form
 from django.contrib.auth.models import User
 from advertiser.models import Advertiser
 
@@ -58,4 +58,19 @@ def advertiser_profile(request):
     except:
         return HttpResponseRedirect('/sorry')
     return render_to_response('advertiser_profile.html', locals(), context_instance=RequestContext(request))
+
+@login_required
+def edit_advertiser_profile(request):
+    try:
+        advertiser = Advertiser.objects.get(user=request.user)
+    except:
+        return HttpResponseRedirect('/sorry')
+
+    form = edit_advertiser_profile_form(instance=advertiser)
+    if request.method == 'POST':
+        form = edit_advertiser_profile_form(request.POST, request.FILES, instance=advertiser)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/advertiser_profile')
+    return render_to_response('edit_advertiser_profile.html', locals(), context_instance=RequestContext(request))
 
