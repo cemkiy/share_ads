@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from advertiser.models import Advertiser
+from advertiser.models import Advertiser, Campaign
 
 
 class user_form(forms.ModelForm):
@@ -17,6 +17,7 @@ class user_form(forms.ModelForm):
                    'user_permissions': forms.HiddenInput(),
                    }
 
+
 class new_advertiser_form(forms.ModelForm):
     class Meta:
         model = Advertiser
@@ -25,3 +26,9 @@ class new_advertiser_form(forms.ModelForm):
                    'advertiser_photo': forms.HiddenInput(),
                    }
 
+
+class new_campaign_form(forms.ModelForm):
+    class Meta:
+        model = Campaign
+        widgets = {'advertiser': forms.HiddenInput(),
+                   }

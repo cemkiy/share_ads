@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
+    'share_ads_main',
     'advertiser',
     'publisher',
     'payment_system',

@@ -34,7 +34,7 @@ class Campaign(models.Model):
     category = models.ForeignKey(Category)
     campaign_type = models.CharField(max_length=1, choices=CAMPAIGN_CHOICES, default='2') #options
     total_money = models.PositiveIntegerField(default=0)
-    total_joined_publisher = models.PositiveIntegerField(default=0)
+    total_joined_publisher = models.PositiveIntegerField(default=0, editable=False)
     active = models.BooleanField(default=True, editable=False)
     end_date = models.DateTimeField()
     cdate = models.DateTimeField(auto_now_add=True)
