@@ -2,9 +2,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
-from advertiser.forms import new_advertiser_form, user_form, new_campaign_form, edit_advertiser_profile_form
+from advertiser.forms import new_advertiser_form, user_form, new_campaign_form, edit_advertiser_profile_form, \
+    edit_campaign_details_form
 from django.contrib.auth.models import User
-from advertiser.models import Advertiser
+from advertiser.models import Advertiser, Campaign
 
 
 def new_advertiser(request):
@@ -50,6 +51,22 @@ def new_campaign(request):
 
             return HttpResponseRedirect('/campaign_pool')
     return render_to_response('new_campaign.html', locals(), context_instance=RequestContext(request))
+
+@login_required
+def edit_campaign_details(request, campaign_id):
+    try:
+        advertiser = Advertiser.objects.get(user=request.user)
+        campaign = Campaign.objects.get(id=campaign_id, advertiser=advertiser)
+    except:
+        return HttpResponseRedirect('/sorry')
+
+    form = edit_campaign_details_form(instance=campaign)
+    if request.method == 'POST':
+        form = edit_campaign_details_form(request.POST, instance=campaign)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/campaign_detail/' + str(campaign.id))
+    return render_to_response('edit_campaign_details.html', locals(), context_instance=RequestContext(request))
 
 @login_required
 def advertiser_profile(request):

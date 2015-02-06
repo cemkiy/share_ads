@@ -5,12 +5,8 @@
     <title></title>
 </head>
 <body>
-{% for campaign in campaigns %}
-<a href="/campaign_detail/{{ campaign.id }}">
 <p>{{ campaign.title }}</p>
-<p>{{ campaign.category }}</p>
-    </a>
-{% endfor %}
+<p>{{ campaign.category}}</p>
 
 </body>
 </html>

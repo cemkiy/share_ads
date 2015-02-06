@@ -40,3 +40,11 @@ class edit_advertiser_profile_form(forms.ModelForm):
         widgets = {'user': forms.HiddenInput(),
                    'active': forms.HiddenInput(),
                    }
+
+
+class edit_campaign_details_form(forms.ModelForm):
+    class Meta:
+        model = Campaign
+        widgets = {'advertiser': forms.HiddenInput(),
+                   'campaign_type': forms.HiddenInput(),
+                   }
