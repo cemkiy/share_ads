@@ -5,4 +5,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('publisher.views',
                         url(r'^new_publisher/$', 'new_publisher'),
+                        url(r'^publisher_profile/$', 'publisher_profile'),
+
                        )

@@ -5,6 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from publisher.forms import user_form, new_publisher_form
+from publisher.models import Publisher
 
 
 def new_publisher(request):
@@ -33,3 +34,11 @@ def new_publisher(request):
 
             return HttpResponseRedirect('/accounts/login/')
     return render_to_response('new_publisher.html', locals(), context_instance=RequestContext(request))
+
+@login_required
+def publisher_profile(request):
+    try:
+        publisher = Publisher.objects.get(user=request.user)
+    except:
+        return HttpResponseRedirect('/sorry')
+    return render_to_response('publisher_profile.html', locals(), context_instance=RequestContext(request))
