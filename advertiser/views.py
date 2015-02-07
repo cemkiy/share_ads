@@ -88,6 +88,6 @@ def edit_advertiser_profile(request):
         form = edit_advertiser_profile_form(request.POST, request.FILES, instance=advertiser)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/advertiser_profile')
+            return HttpResponseRedirect('/advertiser/advertiser_profile')
     return render_to_response('edit_advertiser_profile.html', locals(), context_instance=RequestContext(request))
 
