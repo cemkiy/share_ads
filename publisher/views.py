@@ -4,7 +4,7 @@ from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from publisher.forms import user_form, new_publisher_form
+from publisher.forms import user_form, new_publisher_form, edit_publisher_profile_form
 from publisher.models import Publisher
 
 
@@ -42,3 +42,18 @@ def publisher_profile(request):
     except:
         return HttpResponseRedirect('/sorry')
     return render_to_response('publisher_profile.html', locals(), context_instance=RequestContext(request))
+
+@login_required
+def edit_publisher_profile(request):
+    try:
+        publisher = Publisher.objects.get(user=request.user)
+    except:
+        return HttpResponseRedirect('/sorry')
+
+    form = edit_publisher_profile_form(instance=publisher)
+    if request.method == 'POST':
+        form = edit_publisher_profile_form(request.POST, request.FILES, instance=publisher)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/publisher/publisher_profile')
+    return render_to_response('edit_publisher_profile.html', locals(), context_instance=RequestContext(request))

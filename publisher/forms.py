@@ -25,3 +25,11 @@ class new_publisher_form(forms.ModelForm):
         widgets = {'active': forms.HiddenInput(),
                    'publisher_profile_photo': forms.HiddenInput(),
                    }
+
+
+class edit_publisher_profile_form(forms.ModelForm):
+    class Meta:
+        model = Publisher
+        widgets = {'user': forms.HiddenInput(),
+                   'active': forms.HiddenInput(),
+                   }
