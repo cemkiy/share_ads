@@ -5,7 +5,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from publisher.forms import user_form, new_publisher_form, edit_publisher_profile_form
-from publisher.models import Publisher
+from publisher.models import Publisher, Published_Adverts
 
 
 def new_publisher(request):
@@ -57,3 +57,12 @@ def edit_publisher_profile(request):
             form.save()
             return HttpResponseRedirect('/publisher/publisher_profile')
     return render_to_response('edit_publisher_profile.html', locals(), context_instance=RequestContext(request))
+
+@login_required
+def my_published_adverts(request):
+    try:
+        publisher = Publisher.objects.get(user=request.user)
+        published_adverts = Published_Adverts.objects.filter(social_data__publisher=publisher)
+    except:
+        return HttpResponseRedirect('/sorry')
+    return render_to_response('my_published_adverts.html', locals(), context_instance=RequestContext(request))
