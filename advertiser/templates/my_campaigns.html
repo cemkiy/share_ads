@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% for campaign in campaigns %}
+<a href="/advertiser/edit_campaign_details/{{ campaign.id }}">
+
+<p>{{ campaign.title }}</p>
+<p>{{ campaign.category }}</p>
+    </a>
+{% endfor %}
+
+</body>
+</html>

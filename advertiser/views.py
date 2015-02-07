@@ -91,3 +91,11 @@ def edit_advertiser_profile(request):
             return HttpResponseRedirect('/advertiser/advertiser_profile')
     return render_to_response('edit_advertiser_profile.html', locals(), context_instance=RequestContext(request))
 
+@login_required
+def my_campaigns(request):
+    try:
+        advertiser = Advertiser.objects.get(user=request.user)
+        campaigns = Campaign.objects.filter(advertiser=advertiser).order_by('-cdate')
+    except:
+        return HttpResponseRedirect('/sorry')
+    return render_to_response('my_campaigns.html', locals(), context_instance=RequestContext(request))
