@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from advertiser.models import Campaign
+from advertiser.models import Campaign, Advertiser
 
 __author__ = 'cemkiy'
 from django.shortcuts import render, render_to_response
@@ -22,6 +22,13 @@ def campaign_detail(request, campaign_id):
     except:
         return HttpResponseRedirect('/sorry')
     return render_to_response('campaign_detail.html', locals(), context_instance=RequestContext(request))
+
+def public_advertiser_profile(request, advertiser_id):
+    try:
+        advertiser = Advertiser.objects.get(id=advertiser_id)
+    except:
+        return HttpResponseRedirect('/sorry')
+    return render_to_response('public_advertiser_profile.html', locals(), context_instance=RequestContext(request))
 
 def sorry(request):
     return render_to_response('sorry.html', context_instance=RequestContext(request))
