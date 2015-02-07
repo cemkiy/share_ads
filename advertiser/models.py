@@ -26,7 +26,9 @@ class Campaign(models.Model):
     CAMPAIGN_CHOICES = (
     (u'0', _(u'retweet')),
     (u'1', _(u'share hashtag')),
-    (u'2', _(u'share campaign'))
+    (u'2', _(u'share campaign')),
+    (u'3', _(u'like campaign')),
+    (u'4', _(u'follow campaign')),
     )
 
     advertiser =models.ForeignKey(Advertiser)

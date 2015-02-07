@@ -8,14 +8,14 @@
 <ul>
     {% if form.errors %}
         <p>{{ form.errors }}</p>
-    {% elif  advertiser_form.errors %}
-        <p>{{ advertiser_form.errors }}</p>
+    {% elif  publisher_form.errors %}
+        <p>{{ publisher_form.errors }}</p>
     {% endif %}
 <form method='POST'>
     {% csrf_token %}
     <table border=1>
         {{ form }}
-        {{ advertiser_form }}
+        {{ publisher_form }}
     </table>
     <input type='submit' value='Submit'/>
 </form>

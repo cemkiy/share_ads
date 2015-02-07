@@ -3,6 +3,6 @@ from django.contrib import admin
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
-
+urlpatterns = patterns('publisher.views',
+                        url(r'^new_publisher/$', 'new_publisher'),
                        )
