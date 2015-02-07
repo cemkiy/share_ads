@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% for published_advert in published_adverts %}
+<a href="{{ published_advert.message_link }}">
+<p>{{ published_advert.social_data.publisher.user.username }}</p>
+<p>{{ published_advert.social_data.get_account_type_display }}</p>
+    </a>
+{% endfor %}
+
+</body>
+</html>

@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from advertiser.models import Campaign, Advertiser
+from publisher.models import Published_Adverts
 
 __author__ = 'cemkiy'
 from django.shortcuts import render, render_to_response
@@ -38,3 +39,11 @@ def terms(request):
 
 def contact_us(request):
     return render_to_response('contact_us.html', context_instance=RequestContext(request))
+
+def joined_publisher_to_a_campaign(request, campaign_id):
+    try:
+        published_adverts = Published_Adverts.objects.filter(campaign__id=campaign_id, active=True).order_by('-cdate')
+    except:
+        return HttpResponseRedirect('/sorry')
+
+    return render_to_response('campaign_pool.html', locals(), context_instance=RequestContext(request))

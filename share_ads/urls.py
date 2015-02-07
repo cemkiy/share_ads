@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^campaign_pool/$', 'share_ads.views.campaign_pool'),
     url(r'^public_advertiser_profile/(.+)$', 'share_ads.views.public_advertiser_profile'),
     url(r'^campaign_detail/(.+)$', 'share_ads.views.campaign_detail'),
+    url(r'^joined_publisher_to_a_campaign/(.+)$', 'share_ads.views.joined_publisher_to_a_campaign'),
     url(r'^contact_us/$', 'share_ads.views.contact_us'),
     url(r'^sorry/$', 'share_ads.views.sorry'),
 ) + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
