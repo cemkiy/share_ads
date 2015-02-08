@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<title></title>
+</head>
+<body>
+<div id="fb-root"></div>
+<a id="facebook_button" href="javascript:void(0)" onclick="facebook_login();" style="margin-top: 15%;margin-left: 10%;">facebook</a></br>
+<a id="twitter_button" href="javascript:void(0)" onclick="" style="margin-top: 15%;margin-left: 10%;">twitter not entegreted</a>
+</body>
+<script type="text/javascript" src="/static/js/facebookapi.js"></script>
+<script type="text/javascript">
+function facebook_login(){
+            Facebook.init(function () {
+                FB.login(function (response) {
+                
+                    if (response.authResponse) {
+                        var access_token = response.authResponse.accessToken;
+                        alert(access_token);
+                        FB.api('/me', function (me) {
+                            $('#id_facebook_token').val(access_token);
+                            $.ajax({
+                                type: "POST",
+                                url: "/publisher/registered_facebook/",
+                                data: "access_token="+access_token,
+                                success:okey(),
+                                dataType: JSON
+                            });
+                        });
+                    }
+                     else{
+                         alert('Error');
+                    }
+                },{scope: 'publish_actions,user_status,read_stream,user_friends'});
+            });
+    }
+    
+    function okey(){
+        alert('Facebook connected');
+        }
+</script>
+</html>

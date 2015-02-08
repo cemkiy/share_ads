@@ -31,4 +31,5 @@ urlpatterns = patterns('',
     url(r'^joined_publisher_to_a_campaign/(.+)$', 'share_ads.views.joined_publisher_to_a_campaign'),
     url(r'^contact_us/$', 'share_ads.views.contact_us'),
     url(r'^sorry/$', 'share_ads.views.sorry'),
+    url(r'^facebook/', include('django_facebook.urls')),
 ) + staticfiles_urlpatterns() + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

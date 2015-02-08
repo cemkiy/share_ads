@@ -1,12 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 from publisher.forms import user_form, new_publisher_form, edit_publisher_profile_form
-from publisher.models import Publisher, Published_Adverts
-
+from publisher.models import Publisher, Published_Adverts, Social_Data
+from open_facebook.api import FacebookAuthorization, OpenFacebook
 
 def new_publisher(request):
     if request.user.is_authenticated():
@@ -66,3 +67,47 @@ def my_published_adverts(request):
     except:
         return HttpResponseRedirect('/sorry')
     return render_to_response('my_published_adverts.html', locals(), context_instance=RequestContext(request))
+
+@login_required
+def publisher_social_data(request):
+    try:
+        publisher = Publisher.objects.get(user=request.user)
+        published_adverts = Published_Adverts.objects.filter(social_data__publisher=publisher)
+    except:
+        return HttpResponseRedirect('/sorry')
+    return render_to_response('publisher_social_data.html', locals(), context_instance=RequestContext(request))
+
+@csrf_exempt
+def registered_facebook(request):
+    try:
+        publisher = Publisher.objects.get(user=request.user)
+    except:
+        return HttpResponseRedirect('/sorry')
+
+    #control every account just one once
+    if len(Social_Data.objects.filter(publisher=publisher, account_type=0)) >= 1:
+        return HttpResponse(False, content_type='application/json')
+
+    try:
+        token = request.POST.get('access_token')
+        long_access_token = FacebookAuthorization.extend_access_token(token)['access_token']
+        print 'long is generated'
+    except:
+        long_access_token = token
+        print long_access_token
+
+    try:
+        graph = OpenFacebook(long_access_token)
+        profile = graph.get('me')
+        profile_id = profile['id']
+        friends = graph.get('me/friends')
+        total_follower = int(friends['summary']['total_count'])
+    except Exception as e:
+        return HttpResponse(e)
+
+    try:
+        social_network = Social_Data(publisher=publisher, account_type=0, account_id=profile_id, account_token=long_access_token, total_follower=total_follower)
+        social_network.save()
+        return HttpResponse(True, content_type='application/json')
+    except Exception as e:
+        return HttpResponse(e, content_type='application/json')
