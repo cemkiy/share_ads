@@ -5,9 +5,15 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-from publisher.forms import user_form, new_publisher_form, edit_publisher_profile_form
+import twitter_try
+from publisher.forms import user_form, new_publisher_form, edit_publisher_profile_form, twitter_pin_form
 from publisher.models import Publisher, Published_Adverts, Social_Data
 from open_facebook.api import FacebookAuthorization, OpenFacebook
+import twitter
+import webbrowser
+from requests_oauthlib import OAuth1Session
+from share_ads import settings
+
 
 def new_publisher(request):
     if request.user.is_authenticated():
@@ -72,7 +78,6 @@ def my_published_adverts(request):
 def publisher_social_data(request):
     try:
         publisher = Publisher.objects.get(user=request.user)
-        published_adverts = Published_Adverts.objects.filter(social_data__publisher=publisher)
     except:
         return HttpResponseRedirect('/sorry')
     return render_to_response('publisher_social_data.html', locals(), context_instance=RequestContext(request))
@@ -111,3 +116,59 @@ def registered_facebook(request):
         return HttpResponse(True, content_type='application/json')
     except Exception as e:
         return HttpResponse(e, content_type='application/json')
+
+@login_required
+def registered_twitter(request, oauth_token=None, oauth_token_secret=None):
+    # Victory is mine!
+    # Twitter Keys
+    REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token'
+    ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token'
+    AUTHORIZATION_URL = 'https://api.twitter.com/oauth/authorize'
+    SIGNIN_URL = 'https://api.twitter.com/oauth/authenticate'
+    consumer_key = 'zsqVde4f4vkRNopoj8zGvVM7x'
+    consumer_secret = '3pcD1MNmQNyHAZrDjmNQmHdnUNfZywbA4Lbomh3ofxqzO3e6o8'
+    oauth_client = OAuth1Session(consumer_key, client_secret=consumer_secret)
+
+    try:
+        publisher = Publisher.objects.get(user=request.user)
+    except:
+        return HttpResponseRedirect('/sorry')
+
+    if not len(Social_Data.objects.filter(publisher=publisher, account_type=1)) >= 1: # control every account just one once
+        # Twitter Registered Part
+        form = twitter_pin_form
+        if request.method == 'POST':
+            form = twitter_pin_form(request.POST)
+            if form.is_valid():
+                twitter_pin = request.POST.get('twitter_pin')
+                oauth_client = OAuth1Session(consumer_key, client_secret=consumer_secret,
+                                     resource_owner_key=oauth_token,
+                                     resource_owner_secret=oauth_token_secret, verifier=twitter_pin
+                                    )
+                try:
+                    resp = oauth_client.fetch_access_token(ACCESS_TOKEN_URL)
+                except ValueError, e:
+                    print 'Invalid respond from Twitter requesting access token: %s' % e
+                    return HttpResponseRedirect('/sorry')
+                api = twitter.Api(consumer_key=consumer_key,
+                          consumer_secret=consumer_secret,
+                          access_token_key=resp.get('oauth_token'),
+                          access_token_secret=resp.get('oauth_token_secret'))
+
+                social_network = Social_Data(publisher=publisher, account_type=1, account_id=resp.get('oauth_token'), account_token=resp.get('oauth_token_secret'), total_follower=api.VerifyCredentials().followers_count)
+                social_network.save()
+                return HttpResponseRedirect('/publisher/publisher_social_data')
+        elif oauth_token == None and oauth_token_secret == None:
+            try:
+                resp = oauth_client.fetch_request_token(REQUEST_TOKEN_URL)
+            except ValueError, e:
+                print 'Invalid respond from Twitter requesting temp token: %s' % e
+                return HttpResponseRedirect('/sorry')
+            url = oauth_client.authorization_url(AUTHORIZATION_URL)
+            print url
+            print resp.get('oauth_token')
+            webbrowser.open(url)
+            return HttpResponseRedirect('/publisher/registered_twitter/'+str(resp.get('oauth_token'))+'/'+str(resp.get('oauth_token_secret')))
+        # End Twitter
+    return render_to_response('registered_twitter.html', locals(), context_instance=RequestContext(request))
+

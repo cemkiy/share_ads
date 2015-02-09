@@ -11,4 +11,6 @@ urlpatterns = patterns('publisher.views',
     url(r'^my_published_adverts/$', 'my_published_adverts'),
     url(r'^publisher_social_data/$', 'publisher_social_data'),
     url(r'^registered_facebook/$', 'registered_facebook'),
+    url(r'^registered_twitter/$', 'registered_twitter'),
+    url(r'^registered_twitter/(?P<oauth_token>.+?)/(?P<oauth_token_secret>.+?)$', 'registered_twitter'),
    )

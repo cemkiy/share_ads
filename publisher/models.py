@@ -26,7 +26,7 @@ class Social_Data(models.Model):
 
     publisher = models.ForeignKey(Publisher)
     account_type = models.CharField(max_length=1, choices=ACCOUNT_CHOICES, default='0') #options
-    account_id = models.CharField(max_length=300)
+    account_id = models.CharField(max_length=300) #if account is Twitter: access token for user, and get_id=api.VerifyCredentials().id
     account_token = models.CharField(max_length=300)
     total_follower = models.PositiveIntegerField(default=0)
     active = models.BooleanField(default=True, editable=False)

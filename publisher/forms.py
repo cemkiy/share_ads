@@ -33,3 +33,7 @@ class edit_publisher_profile_form(forms.ModelForm):
         widgets = {'user': forms.HiddenInput(),
                    'active': forms.HiddenInput(),
                    }
+
+
+class twitter_pin_form(forms.Form):
+    twitter_pin = forms.CharField(max_length=50)

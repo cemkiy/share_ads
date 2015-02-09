@@ -31,6 +31,14 @@ ALLOWED_HOSTS = []
 FACEBOOK_APP_ID = '1467336330221256'
 FACEBOOK_APP_SECRET = 'c912f978e0ecf4b4e63124c6cf154254'
 
+#Twitter API
+REQUEST_TOKEN_URL = 'https://api.twitter.com/oauth/request_token'
+ACCESS_TOKEN_URL = 'https://api.twitter.com/oauth/access_token'
+AUTHORIZATION_URL = 'https://api.twitter.com/oauth/authorize'
+SIGNIN_URL = 'https://api.twitter.com/oauth/authenticate'
+consumer_key = 'zsqVde4f4vkRNopoj8zGvVM7x'
+consumer_secret = '3pcD1MNmQNyHAZrDjmNQmHdnUNfZywbA4Lbomh3ofxqzO3e6o8'
+
 # Application definition
 
 INSTALLED_APPS = (
