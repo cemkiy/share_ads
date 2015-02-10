@@ -35,6 +35,7 @@ class Campaign(models.Model):
     title = models.CharField(max_length=40)
     category = models.ForeignKey(Category)
     campaign_type = models.CharField(max_length=1, choices=CAMPAIGN_CHOICES, default='2') #options
+    campaign_data = models.CharField(max_length=300, null=True)
     total_money = models.PositiveIntegerField(default=0)
     total_joined_publisher = models.PositiveIntegerField(default=0, editable=False)
     active = models.BooleanField(default=True, editable=False)

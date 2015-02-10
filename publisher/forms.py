@@ -37,3 +37,11 @@ class edit_publisher_profile_form(forms.ModelForm):
 
 class twitter_pin_form(forms.Form):
     twitter_pin = forms.CharField(max_length=50)
+
+
+class send_tweet_form(forms.Form):
+    tweet = forms.CharField(max_length=256)
+
+
+class send_fb_post_form(forms.Form):
+    post_text = forms.CharField(max_length=400)
