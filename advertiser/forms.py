@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from advertiser.models import Advertiser, Campaign
-
+from django.forms.extras.widgets import SelectDateWidget
 
 class user_form(forms.ModelForm):
     class Meta:
@@ -31,7 +31,7 @@ class new_campaign_form(forms.ModelForm):
     class Meta:
         model = Campaign
         widgets = {'advertiser': forms.HiddenInput(),
-                   'end_date': forms.DateTimeInput(),
+                   'end_date': forms.SplitDateTimeWidget(),
                    }
 
 

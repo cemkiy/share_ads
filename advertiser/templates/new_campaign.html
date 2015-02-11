@@ -3,6 +3,8 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
 </head>
 <body>
 <ul>
@@ -18,4 +20,25 @@
 </form>
 </ul>
 </body>
+<script type="application/javascript">
+    $(document).ready(function () {
+    $('#id_campaign_type').on('change', function() {
+        if ($( "#id_campaign_type" ).val()==0){
+            $("label[for = id_campaign_data]").text("Tweet ID:");
+        }
+        else if($( "#id_campaign_type" ).val()==1){
+            $("label[for = id_campaign_data]").text("Hashtag Text:");
+        }
+        else if($( "#id_campaign_type" ).val()==2){
+            $("label[for = id_campaign_data]").text("Share URL(Website...):");
+        }
+        else if($( "#id_campaign_type" ).val()==3){
+            $("label[for = id_campaign_data]").text("Facebook Page Name:");
+        }
+        else{
+            $("label[for = id_campaign_data]").text("Twitter Username:");
+        }
+    });
+    });
+</script>
 </html>
