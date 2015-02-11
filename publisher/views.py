@@ -308,6 +308,9 @@ def publisher_join_campaign(request, campaign_id):
     except:
         return HttpResponseRedirect('/sorry')
 
+    if not len(Published_Adverts.objects.filter(social_data__publisher=publisher, campaign=campaign)) == 0: #Every campaign, just one once
+        return HttpResponseRedirect('/publisher/my_published_adverts')
+
     if campaign.campaign_type in ['0', '1', '4']:
         try:
             account_tw = Social_Data.objects.get(publisher=publisher, account_type='1')
