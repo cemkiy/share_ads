@@ -18,7 +18,6 @@ function facebook_login(){
                 
                     if (response.authResponse) {
                         var access_token = response.authResponse.accessToken;
-                        alert(access_token);
                         FB.api('/me', function (me) {
                             $('#id_facebook_token').val(access_token);
                             $.ajax({

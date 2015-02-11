@@ -92,10 +92,6 @@ def registered_facebook(request):
     except:
         return HttpResponseRedirect('/sorry')
 
-    #control every account just one once
-    if len(Social_Data.objects.filter(publisher=publisher, account_type=0)) >= 1:
-        return HttpResponse(False, content_type='application/json')
-
     try:
         token = request.POST.get('access_token')
         long_access_token = FacebookAuthorization.extend_access_token(token)['access_token']
@@ -114,7 +110,14 @@ def registered_facebook(request):
         return HttpResponse(e)
 
     try:
-        social_network = Social_Data(publisher=publisher, account_type=0, account_id=profile_id, account_token=long_access_token, total_follower=total_follower)
+        #control every account just one once
+        if len(Social_Data.objects.filter(publisher=publisher, account_type=0)) >= 1:
+            social_network = Social_Data.objects.get(publisher=publisher, account_type=0)
+            social_network.account_id = profile_id
+            social_network.account_token = long_access_token
+            social_network.total_follower = total_follower
+        else:
+            social_network = Social_Data(publisher=publisher, account_type=0, account_id=profile_id, account_token=long_access_token, total_follower=total_follower)
         social_network.save()
         return HttpResponse(True, content_type='application/json')
     except Exception as e:
@@ -137,42 +140,47 @@ def registered_twitter(request, oauth_token=None, oauth_token_secret=None):
     except:
         return HttpResponseRedirect('/sorry')
 
-    if not len(Social_Data.objects.filter(publisher=publisher, account_type=1)) >= 1: # control every account just one once
-        # Twitter Registered Part
-        form = twitter_pin_form
-        if request.method == 'POST':
-            form = twitter_pin_form(request.POST)
-            if form.is_valid():
-                twitter_pin = request.POST.get('twitter_pin')
-                oauth_client = OAuth1Session(consumer_key, client_secret=consumer_secret,
-                                     resource_owner_key=oauth_token,
-                                     resource_owner_secret=oauth_token_secret, verifier=twitter_pin
-                                    )
-                try:
-                    resp = oauth_client.fetch_access_token(ACCESS_TOKEN_URL)
-                except ValueError, e:
-                    print 'Invalid respond from Twitter requesting access token: %s' % e
-                    return HttpResponseRedirect('/sorry')
-                api = twitter.Api(consumer_key=consumer_key,
-                          consumer_secret=consumer_secret,
-                          access_token_key=resp.get('oauth_token'),
-                          access_token_secret=resp.get('oauth_token_secret'))
-
-                social_network = Social_Data(publisher=publisher, account_type=1, account_id=resp.get('oauth_token'), account_token=resp.get('oauth_token_secret'), total_follower=api.VerifyCredentials().followers_count)
-                social_network.save()
-                return HttpResponseRedirect('/publisher/publisher_social_data')
-        elif oauth_token == None and oauth_token_secret == None:
+    # Twitter Registered Part
+    form = twitter_pin_form
+    if request.method == 'POST':
+        form = twitter_pin_form(request.POST)
+        if form.is_valid():
+            twitter_pin = request.POST.get('twitter_pin')
+            oauth_client = OAuth1Session(consumer_key, client_secret=consumer_secret,
+                                 resource_owner_key=oauth_token,
+                                 resource_owner_secret=oauth_token_secret, verifier=twitter_pin
+                                )
             try:
-                resp = oauth_client.fetch_request_token(REQUEST_TOKEN_URL)
+                resp = oauth_client.fetch_access_token(ACCESS_TOKEN_URL)
             except ValueError, e:
-                print 'Invalid respond from Twitter requesting temp token: %s' % e
+                print 'Invalid respond from Twitter requesting access token: %s' % e
                 return HttpResponseRedirect('/sorry')
-            url = oauth_client.authorization_url(AUTHORIZATION_URL)
-            print url
-            print resp.get('oauth_token')
-            webbrowser.open(url)
-            return HttpResponseRedirect('/publisher/registered_twitter/'+str(resp.get('oauth_token'))+'/'+str(resp.get('oauth_token_secret')))
-        # End Twitter
+            api = twitter.Api(consumer_key=consumer_key,
+                      consumer_secret=consumer_secret,
+                      access_token_key=resp.get('oauth_token'),
+                      access_token_secret=resp.get('oauth_token_secret'))
+
+            if not len(Social_Data.objects.filter(publisher=publisher, account_type=1)) >= 1: # control every account just one once
+                social_network = Social_Data.objects.get(publisher=publisher, account_type=1)
+                social_network.account_id = resp.get('oauth_token')
+                social_network.account_token = resp.get('oauth_token_secret')
+                social_network.total_follower = api.VerifyCredentials().followers_count
+            else:
+                social_network = Social_Data(publisher=publisher, account_type=1, account_id=resp.get('oauth_token'), account_token=resp.get('oauth_token_secret'), total_follower=api.VerifyCredentials().followers_count)
+            social_network.save()
+            return HttpResponseRedirect('/publisher/publisher_social_data')
+    elif oauth_token == None and oauth_token_secret == None:
+        try:
+            resp = oauth_client.fetch_request_token(REQUEST_TOKEN_URL)
+        except ValueError, e:
+            print 'Invalid respond from Twitter requesting temp token: %s' % e
+            return HttpResponseRedirect('/sorry')
+        url = oauth_client.authorization_url(AUTHORIZATION_URL)
+        print url
+        print resp.get('oauth_token')
+        webbrowser.open(url)
+        return HttpResponseRedirect('/publisher/registered_twitter/'+str(resp.get('oauth_token'))+'/'+str(resp.get('oauth_token_secret')))
+    # End Twitter
     return render_to_response('registered_twitter.html', locals(), context_instance=RequestContext(request))
 
 @login_required
