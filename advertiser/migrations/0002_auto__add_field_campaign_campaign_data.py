@@ -8,50 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Advertiser'
-        db.create_table(u'advertiser_advertiser', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('user', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True)),
-            ('advertiser_photo', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
-            ('phone', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('city', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('cdate', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-        ))
-        db.send_create_signal(u'advertiser', ['Advertiser'])
-
-        # Adding model 'Category'
-        db.create_table(u'advertiser_category', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('category_name', self.gf('django.db.models.fields.CharField')(max_length=20)),
-        ))
-        db.send_create_signal(u'advertiser', ['Category'])
-
-        # Adding model 'Campaign'
-        db.create_table(u'advertiser_campaign', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('advertiser', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['advertiser.Advertiser'])),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=40)),
-            ('category', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['advertiser.Category'])),
-            ('campaign_type', self.gf('django.db.models.fields.CharField')(default='2', max_length=1)),
-            ('total_money', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('total_joined_publisher', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('active', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('end_date', self.gf('django.db.models.fields.DateTimeField')()),
-            ('cdate', self.gf('django.db.models.fields.DateTimeField')(auto_now_add=True, blank=True)),
-        ))
-        db.send_create_signal(u'advertiser', ['Campaign'])
+        # Adding field 'Campaign.campaign_data'
+        db.add_column(u'advertiser_campaign', 'campaign_data',
+                      self.gf('django.db.models.fields.CharField')(max_length=300, null=True),
+                      keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting model 'Advertiser'
-        db.delete_table(u'advertiser_advertiser')
-
-        # Deleting model 'Category'
-        db.delete_table(u'advertiser_category')
-
-        # Deleting model 'Campaign'
-        db.delete_table(u'advertiser_campaign')
+        # Deleting field 'Campaign.campaign_data'
+        db.delete_column(u'advertiser_campaign', 'campaign_data')
 
 
     models = {
@@ -69,6 +34,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Campaign'},
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'advertiser': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['advertiser.Advertiser']"}),
+            'campaign_data': ('django.db.models.fields.CharField', [], {'max_length': '300', 'null': 'True'}),
             'campaign_type': ('django.db.models.fields.CharField', [], {'default': "'2'", 'max_length': '1'}),
             'category': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['advertiser.Category']"}),
             'cdate': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),

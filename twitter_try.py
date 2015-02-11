@@ -38,15 +38,16 @@ def get_access_token(consumer_key, consumer_secret):
 
     # api.PostRetweet(original_id='564851441932972033')
     # print api.GetRetweets(statusid='552795737999024128', count=1)[0]
-    # print api.GetStatusOembed(id='552795737999024128')['html']
-    # print api.GetUserTimeline(count=1)[0].id
-    # print api.GetUser(screen_name='mememetali').id
-
-    token = 'CAAU2iNy6lsgBABngv6cPzdkbloZBCqdD5ubXqj3T8MSfvZA5MtCVmHbf9ESBPr5DGCwcTogviqMsIppaJW4eFhI0JJZBZAHCK1kDRokC8BuoZC92q2FQrVXX7ZAYiKNiDCcKqZCZCzBOVfcHpiHCpQS1OhL8PoEo2MWubsZBLQmHeuH69hEJxp6uCTdgape1vXkINhVCzO87B12ZBrmmcC0dns'
-
-
+    # print api.GetStatusOembed(id='564357786004635649')['html']
+    # print api.GetUserStream().gi_frame
+    # print api.GetUser(screen_name='lunaydan').id
+    #
+    token = 'CAAU2iNy6lsgBAEKNWty6qhT8tzkeD9Ajz32dFTez8xJhSEY5Ya1t7un7z5BfpnYMrYQAdVv7klONHB4j3NpfofljZCklTAfKo9lZAaPvePO4GZAErO9T470HEdzjcZAdMtu3CoEuYAypyfwS007qMQkBYxwxkpGb5FpMqFk9AuX4IslJZCZBAWaDlu4aytat1S8SJbuPePVdXPUXZCmALjkmEVowz6Yf1QZD'
+    #
+    #
     facebook = OpenFacebook(token)
-    print facebook.get('me/likes/')['data'][0]['id']
+    # print facebook.get('me/likes/')['data'][0]['id']
+    print facebook.get('deadspace/')['id']
 
 
 def main():

@@ -176,7 +176,7 @@ def registered_twitter(request, oauth_token=None, oauth_token_secret=None):
     return render_to_response('registered_twitter.html', locals(), context_instance=RequestContext(request))
 
 @login_required
-def publisher_join_campaign_retweet(request, campaign_id):
+def publisher_join_campaign_retweet_campaign(request, campaign_id):
     try:
         publisher = Publisher.objects.get(user=request.user)
         campaign = Campaign.objects.get(id=campaign_id)
@@ -192,10 +192,11 @@ def publisher_join_campaign_retweet(request, campaign_id):
         api.PostRetweet(original_id=campaign.campaign_data)
         published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=campaign.campaign_data)
         published_advert.save()
-    except:
+    except Exception as e:
+        exception = e
         return HttpResponseRedirect('/sorry')
 
-    return HttpResponseRedirect('/publisher/publisher_join_campaign')
+    return HttpResponseRedirect('/publisher/my_published_adverts')
 
 @login_required
 def publisher_join_campaign_share_hashtag(request, campaign_id):
@@ -211,26 +212,29 @@ def publisher_join_campaign_share_hashtag(request, campaign_id):
         form = send_tweet_form(request.POST)
         if form.is_valid():
             tweet = request.POST.get('tweet')
+            print tweet
             try:
                 api = twitter.Api(consumer_key='zsqVde4f4vkRNopoj8zGvVM7x',
                               consumer_secret='3pcD1MNmQNyHAZrDjmNQmHdnUNfZywbA4Lbomh3ofxqzO3e6o8',
                               access_token_key=account.account_id,
                               access_token_secret=account.account_token)
-                api.PostUpdate(status=tweet)
+                api.PostUpdate(status=str(tweet)+campaign.campaign_data)
                 published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=api.GetUserTimeline(count=1)[0].id)
                 published_advert.save()
-            except:
+            except Exception as e:
+                print e
                 return HttpResponseRedirect('/sorry')
 
-    return HttpResponseRedirect('/publisher/publisher_join_campaign')
+    return HttpResponseRedirect('/publisher/my_published_adverts')
 
 @login_required
-def publisher_join_campaign_follow(request, campaign_id):
+def publisher_join_campaign_follow_campaign(request, campaign_id):
     try:
         publisher = Publisher.objects.get(user=request.user)
         campaign = Campaign.objects.get(id=campaign_id)
         account = Social_Data.objects.get(publisher=publisher, account_type='1')
-    except:
+    except Exception as e:
+        print e
         return HttpResponseRedirect('/sorry')
 
     try:
@@ -241,18 +245,20 @@ def publisher_join_campaign_follow(request, campaign_id):
         api.CreateFriendship(screen_name=campaign.campaign_data)
         published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=api.GetUser(screen_name=campaign.campaign_data).id)
         published_advert.save()
-    except:
+    except Exception as e:
+        print e
         return HttpResponseRedirect('/sorry')
 
-    return HttpResponseRedirect('/publisher/publisher_join_campaign')
+    return HttpResponseRedirect('/publisher/my_published_adverts')
 
 @login_required
 def publisher_join_campaign_share_campaign(request, campaign_id):
     try:
         publisher = Publisher.objects.get(user=request.user)
         campaign = Campaign.objects.get(id=campaign_id)
-        account = Social_Data.objects.get(publisher=publisher, account_type='1')
-    except:
+        account = Social_Data.objects.get(publisher=publisher, account_type='0')
+    except Exception as e:
+        print e
         return HttpResponseRedirect('/sorry')
 
     form = send_fb_post_form
@@ -262,32 +268,72 @@ def publisher_join_campaign_share_campaign(request, campaign_id):
             post_text = request.POST.get('post_text')
             try:
                 facebook = OpenFacebook(account.account_token)
-                facebook.get('me/feed', message=post_text, url=campaign.campaign_data)
+                facebook.set('me/feed', message=str(post_text)+' '+str(campaign.campaign_data), url=campaign.campaign_data)
                 published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=facebook.get('me/links')['data'][0]['link'])
                 published_advert.save()
-            except:
+            except Exception as e:
+                print e
                 return HttpResponseRedirect('/sorry')
 
-    return HttpResponseRedirect('/publisher/publisher_join_campaign')
+    return HttpResponseRedirect('/publisher/my_published_adverts')
 
 @login_required
-def publisher_join_campaign_like(request, campaign_id):
+def publisher_join_campaign_like_campaign(request, campaign_id):
     try:
         publisher = Publisher.objects.get(user=request.user)
         campaign = Campaign.objects.get(id=campaign_id)
-        account = Social_Data.objects.get(publisher=publisher, account_type='1')
+        account = Social_Data.objects.get(publisher=publisher, account_type='0')
     except:
         return HttpResponseRedirect('/sorry')
 
     try:
         facebook = OpenFacebook(account.account_token)
-        page_id = facebook.get('me/likes/')['data'][0]['id']
-        if page_id == campaign.campaign_data:
-            published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=facebook.get('me/likes/')['data'][0]['id'])
+        last_liked_page_id = facebook.get('me/likes/')['data'][0]['id']
+        advertiser_page_id = facebook.get(campaign.campaign_data+'/')['id']
+        if last_liked_page_id == advertiser_page_id:
+            published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=advertiser_page_id)
             published_advert.save()
         else:
-            pass
+            return HttpResponseRedirect('/publisher/publisher_join_campaign/' + str(campaign_id))
+    except:
+        return HttpResponseRedirect('/publisher/publisher_join_campaign/' + str(campaign_id))
+
+    return HttpResponseRedirect('/publisher/my_published_adverts')
+
+@login_required
+def publisher_join_campaign(request, campaign_id):
+    try:
+        publisher = Publisher.objects.get(user=request.user)
+        campaign = Campaign.objects.get(id=campaign_id)
     except:
         return HttpResponseRedirect('/sorry')
 
-    return HttpResponseRedirect('/publisher/publisher_join_campaign')
+    if campaign.campaign_type in ['0', '1', '4']:
+        try:
+            account_tw = Social_Data.objects.get(publisher=publisher, account_type='1')
+        except:
+            return HttpResponseRedirect('/sorry')
+        api = twitter.Api(consumer_key='zsqVde4f4vkRNopoj8zGvVM7x',
+                      consumer_secret='3pcD1MNmQNyHAZrDjmNQmHdnUNfZywbA4Lbomh3ofxqzO3e6o8',
+                      access_token_key=account_tw.account_id,
+                      access_token_secret=account_tw.account_token)
+
+        if campaign.campaign_type == '0':
+            html_message_code = api.GetStatusOembed(id=campaign.campaign_data)['html']
+        elif campaign.campaign_type == '1':
+            form = send_tweet_form
+        else:
+            html_message_code = campaign.campaign_data
+    else:
+        try:
+            account_fb = Social_Data.objects.get(publisher=publisher, account_type='0')
+        except:
+            return HttpResponseRedirect('/sorry')
+        facebook = OpenFacebook(account_fb.account_token)
+
+        if campaign.campaign_type == '2':
+            form2 = send_fb_post_form
+        else:
+            html_message_code = campaign.campaign_data
+
+    return render_to_response('publisher_join_campaign.html', locals(), context_instance=RequestContext(request))

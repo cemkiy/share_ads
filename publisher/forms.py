@@ -40,8 +40,8 @@ class twitter_pin_form(forms.Form):
 
 
 class send_tweet_form(forms.Form):
-    tweet = forms.CharField(max_length=256)
+    tweet = forms.CharField(max_length=256, widget=forms.Textarea)
 
 
 class send_fb_post_form(forms.Form):
-    post_text = forms.CharField(max_length=400)
+    post_text = forms.CharField(max_length=400, widget=forms.Textarea)

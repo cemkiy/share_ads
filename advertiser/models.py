@@ -22,9 +22,17 @@ class Category(models.Model):
 
 
 class Campaign(models.Model):
+    """
+    campaign_data:
+        retweet campaign = The numerical id of the tweet that will be retweeted
+        share hashtag = twitter hashtag name
+        share campaign = share url for facebook
+        like campaign = facebook page name
+        follow campaign = username to followed user
+    """
 
     CAMPAIGN_CHOICES = (
-    (u'0', _(u'retweet')),
+    (u'0', _(u'retweet campaign')),
     (u'1', _(u'share hashtag')),
     (u'2', _(u'share campaign')),
     (u'3', _(u'like campaign')),

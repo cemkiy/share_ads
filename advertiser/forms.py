@@ -31,6 +31,7 @@ class new_campaign_form(forms.ModelForm):
     class Meta:
         model = Campaign
         widgets = {'advertiser': forms.HiddenInput(),
+                   'end_date': forms.DateTimeInput(),
                    }
 
 

@@ -37,6 +37,15 @@ class Social_Data(models.Model):
 
 
 class Published_Adverts(models.Model):
+    """
+    message_link:
+        retweet campaign = The numerical id of the tweet that will be retweeted
+        share hashtag = user tweet id
+        share campaign = share url for facebook
+        like campaign = facebook page id
+        follow campaign = user id to followed user
+    """
+
     social_data = models.ForeignKey(Social_Data)
     campaign = models.ForeignKey(Campaign)
     message_link = models.CharField(max_length=150)
