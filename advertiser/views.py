@@ -42,14 +42,13 @@ def new_campaign(request):
     except:
         return HttpResponseRedirect('/sorry')
 
-    form = new_campaign_form(initial={'advertiser': advertiser})
+    form = new_campaign_form(initial={'advertiser': advertiser, 'active': False})
     if request.method == 'POST':
-        form = new_campaign_form(request.POST)
-        advertiser_form = new_advertiser_form(request.POST)
+        form = new_campaign_form(request.POST, request.FILES)
         if form.is_valid():
             form.save()
 
-            return HttpResponseRedirect('/campaign_pool')
+            return HttpResponseRedirect('/campaign_pool') #TODO redirect payment
     return render_to_response('new_campaign.html', locals(), context_instance=RequestContext(request))
 
 @login_required

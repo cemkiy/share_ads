@@ -43,10 +43,12 @@ class Campaign(models.Model):
     title = models.CharField(max_length=40)
     category = models.ForeignKey(Category)
     campaign_type = models.CharField(max_length=1, choices=CAMPAIGN_CHOICES, default='2') #options
+    campaign_description = models.CharField(max_length=500, null=True)
     campaign_data = models.CharField(max_length=300, null=True)
     total_money = models.PositiveIntegerField(default=0)
+    campaign_photo = models.ImageField(null=True, blank=True, upload_to="campaign_photo/")
     total_joined_publisher = models.PositiveIntegerField(default=0, editable=False)
-    active = models.BooleanField(default=True, editable=False)
+    active = models.BooleanField(default=False, editable=False)
     end_date = models.DateTimeField()
     cdate = models.DateTimeField(auto_now_add=True)
 
