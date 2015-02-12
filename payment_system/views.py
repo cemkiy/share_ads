@@ -4,7 +4,7 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 from advertiser.models import Advertiser, Campaign
 from payment_system.forms import money_account_form
-from payment_system.models import Money_Request
+from payment_system.models import Money_Request, Advertiser_Payment
 from publisher.models import Publisher
 
 @login_required
@@ -38,7 +38,22 @@ def advertiser_payment(request, campaign_id):
     except:
         return HttpResponseRedirect('/sorry')
 
-
-
     return render_to_response('advertiser_payment.html', locals(), context_instance=RequestContext(request))
+
+@login_required
+def success(request, campaign_id):
+    try:
+        advertiser = Advertiser.objects.get(user=request.user)
+        campaign = Campaign.objects.get(id=campaign_id)
+        advertiser_payment = Advertiser_Payment.objects.get(advertiser=advertiser, campaign=campaign)
+    except:
+        return HttpResponseRedirect('/sorry')
+
+    advertiser_payment.payment_status = '1'
+    advertiser_payment.save()
+    # campaign.active = True
+    # campaign.save()
+    #TODO Mails
+
+    return render_to_response('success.html', locals(), context_instance=RequestContext(request))
 
