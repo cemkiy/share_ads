@@ -146,5 +146,6 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
     os.path.join(BASE_DIR, 'advertiser/templates'),
     os.path.join(BASE_DIR, 'publisher/templates'),
+    os.path.join(BASE_DIR, 'payment_system/templates'),
     os.path.join(BASE_DIR, 'share_ads/templates'),
 )
