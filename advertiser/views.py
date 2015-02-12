@@ -6,6 +6,7 @@ from advertiser.forms import new_advertiser_form, user_form, new_campaign_form, 
     edit_campaign_details_form
 from django.contrib.auth.models import User
 from advertiser.models import Advertiser, Campaign
+from payment_system.models import Advertiser_Payment
 
 
 def new_advertiser(request):
@@ -46,9 +47,11 @@ def new_campaign(request):
     if request.method == 'POST':
         form = new_campaign_form(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            create_campaign = form.save()
+            advertiser_payment = Advertiser_Payment(advertiser=advertiser, payment_status='0', campaign=create_campaign)
+            advertiser_payment.save()
+            return HttpResponseRedirect('/payment_system/advertiser_payment/' + str(create_campaign.id))
 
-            return HttpResponseRedirect('/campaign_pool') #TODO redirect payment
     return render_to_response('new_campaign.html', locals(), context_instance=RequestContext(request))
 
 @login_required
