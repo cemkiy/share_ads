@@ -57,3 +57,19 @@ def success(request, campaign_id):
 
     return render_to_response('success.html', locals(), context_instance=RequestContext(request))
 
+@login_required
+def cancel(request, campaign_id):
+    try:
+        advertiser = Advertiser.objects.get(user=request.user)
+        campaign = Campaign.objects.get(id=campaign_id)
+        advertiser_payment = Advertiser_Payment.objects.get(advertiser=advertiser, campaign=campaign)
+    except:
+        return HttpResponseRedirect('/sorry')
+
+    advertiser_payment.payment_status = '2'
+    advertiser_payment.save()
+    # campaign.active = False
+    # campaign.save()
+    #TODO Mails
+
+    return render_to_response('failure.html', locals(), context_instance=RequestContext(request))
