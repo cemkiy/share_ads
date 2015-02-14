@@ -1,12 +1,15 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
-from django.template import RequestContext
+from django.template import RequestContext, Context
 from django.contrib.auth.decorators import login_required
+import uuid
 from advertiser.forms import new_advertiser_form, user_form, new_campaign_form, edit_advertiser_profile_form, \
     edit_campaign_details_form
 from django.contrib.auth.models import User
 from advertiser.models import Advertiser, Campaign
+from mailgun import mailgun
 from payment_system.models import Advertiser_Payment
+from share_ads.models import Activation
 
 
 def new_advertiser(request):
@@ -24,7 +27,7 @@ def new_advertiser(request):
             email = request.POST.get('email')
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
-            member_user_auth = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
+            member_user_auth = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name, is_active=False)
             # member_user_auth.is_staff = False
             # member_user_auth.is_active = False
             member_user_auth.save()
@@ -32,6 +35,14 @@ def new_advertiser(request):
             new_advertiser = advertiser_form.save(commit=False)
             new_advertiser.user = member_user_auth
             new_advertiser.save()
+
+            code = str(uuid.uuid4())
+            activation = Activation.objects.create(activation_code=code, user=member_user_auth)
+            activation.save()
+
+            context = Context({'username': member_user_auth.username, 'email': member_user_auth.email, 'activation_code': code})
+            mailgun_operator = mailgun()
+            mailgun_operator.send_mail_with_html(email_to=member_user_auth.email, template_name='mail_user_activation.html', context=context, subject='Activation')
 
             return HttpResponseRedirect('/accounts/login/')
     return render_to_response('new_advertiser.html', locals(), context_instance=RequestContext(request))

@@ -1,6 +1,7 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from advertiser.models import Campaign, Advertiser
+from advertiser.models import Campaign, Advertiser, Activation
 from publisher.models import Published_Adverts
 
 __author__ = 'cemkiy'
@@ -47,3 +48,18 @@ def joined_publisher_to_a_campaign(request, campaign_id):
         return HttpResponseRedirect('/sorry')
 
     return render_to_response('campaign_pool.html', locals(), context_instance=RequestContext(request))
+
+def user_activation(request, identity):
+    try:
+        active = Activation.objects.get(activivation_code=identity)
+        user = User.objects.get(id=active.user.id)
+    except:
+        return HttpResponseRedirect('/sorry')
+    try:
+        if user:
+            user.is_active = True
+            user.save()
+            active.delete()
+            return HttpResponseRedirect('/accounts/login/')
+    except:
+        return HttpResponseRedirect('/sorry')

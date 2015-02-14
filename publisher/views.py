@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, render_to_response
-from django.template import RequestContext
+from django.template import RequestContext, Context
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+import uuid
 from advertiser.models import Campaign
+from mailgun import mailgun
+from share_ads.models import Activation
 import twitter_try
 from publisher.forms import user_form, new_publisher_form, edit_publisher_profile_form, twitter_pin_form, \
     send_tweet_form, send_fb_post_form
@@ -33,7 +36,7 @@ def new_publisher(request):
             email = request.POST.get('email')
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
-            member_user_auth = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
+            member_user_auth = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name, is_active=False)
             # member_user_auth.is_staff = False
             # member_user_auth.is_active = False
             member_user_auth.save()
@@ -41,6 +44,14 @@ def new_publisher(request):
             new_publisher = publisher_form.save(commit=False)
             new_publisher.user = member_user_auth
             new_publisher.save()
+
+            code = str(uuid.uuid4())
+            activation = Activation.objects.create(activation_code=code, user=member_user_auth)
+            activation.save()
+
+            context = Context({'username': member_user_auth.username, 'email': member_user_auth.email, 'activation_code': code})
+            mailgun_operator = mailgun()
+            mailgun_operator.send_mail_with_html(email_to=member_user_auth.email, template_name='mail_user_activation.html', context=context, subject='Activation')
 
             return HttpResponseRedirect('/accounts/login/')
     return render_to_response('new_publisher.html', locals(), context_instance=RequestContext(request))
