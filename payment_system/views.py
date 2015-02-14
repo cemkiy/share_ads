@@ -1,8 +1,9 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
-from django.template import RequestContext
+from django.template import RequestContext, Context
 from django.contrib.auth.decorators import login_required
 from advertiser.models import Advertiser, Campaign
+from mailgun import mailgun
 from payment_system.forms import money_account_form
 from payment_system.models import Money_Request, Advertiser_Payment
 from publisher.models import Publisher
@@ -24,7 +25,10 @@ def give_my_money(request):
                 money_request = Money_Request(publisher=publisher, total_money=publisher.total_money, money_account=money_account)
                 money_request.save()
                 information = 'We will pay your money asap ;) '
-                #TODO Mail send admins
+
+                context = Context({'username': publisher.user.username, 'total_money': publisher.total_money})
+                mailgun_operator = mailgun()
+                mailgun_operator.send_mail_with_html('se.cemkiy@gmail.com', 'mail_give_my_money.html', context, 'share_ads:Money Request')
     else:
         information = "Your money is under the limit"
 
@@ -53,7 +57,10 @@ def success(request, campaign_id):
     advertiser_payment.save()
     # campaign.active = True
     # campaign.save()
-    #TODO Mails
+
+    context = Context({'username': advertiser.user.username, 'campaign': campaign.title})
+    mailgun_operator = mailgun()
+    mailgun_operator.send_mail_with_html('se.cemkiy@gmail.com', 'mail_success.html', context, 'share_ads:Success Payment')
 
     return render_to_response('success.html', locals(), context_instance=RequestContext(request))
 
@@ -70,6 +77,8 @@ def cancel(request, campaign_id):
     advertiser_payment.save()
     # campaign.active = False
     # campaign.save()
-    #TODO Mails
+    context = Context({'username': advertiser.user.username, 'campaign': campaign.title})
+    mailgun_operator = mailgun()
+    mailgun_operator.send_mail_with_html('se.cemkiy@gmail.com', 'mail_cancel.html', context, 'share_ads:Cancel Payment')
 
-    return render_to_response('failure.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('cancel.html', locals(), context_instance=RequestContext(request))
