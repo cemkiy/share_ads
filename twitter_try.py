@@ -31,23 +31,21 @@ consumer_secret = '3pcD1MNmQNyHAZrDjmNQmHdnUNfZywbA4Lbomh3ofxqzO3e6o8'
 
 
 def get_access_token(consumer_key, consumer_secret):
-    # api = twitter.Api(consumer_key=consumer_key,
-    # consumer_secret = consumer_secret,
-    # access_token_key = '174146813-9QE1XGytq9K1wCpTalipbdctwuggkQCV1DBQxvBJ',
-    # access_token_secret = 'JSsPeZwC3MDV5KzmafYxLhetCdyedBW5vnWLXRJ9nx0tO')
+    api = twitter.Api(consumer_key=consumer_key,
+    consumer_secret = consumer_secret,
+    access_token_key = '174146813-9QE1XGytq9K1wCpTalipbdctwuggkQCV1DBQxvBJ',
+    access_token_secret = 'JSsPeZwC3MDV5KzmafYxLhetCdyedBW5vnWLXRJ9nx0tO')
 
-    # api.PostRetweet(original_id='564851441932972033')
-    # print api.GetRetweets(statusid='552795737999024128', count=1)[0]
-    # print api.GetStatusOembed(id='564357786004635649')['html']
-    # print api.GetUserStream().gi_frame
-    # print api.GetUser(screen_name='lunaydan').id
+    api.PostRetweet(original_id='564851441932972033')
+    print api.GetRetweets(statusid='552795737999024128', count=1)[0]
+    print api.GetStatusOembed(id='564357786004635649')['html']
+    print api.GetUserStream().gi_frame
+    print api.GetUser(screen_name='lunaydan').id
     #
-    token = 'CAAU2iNy6lsgBAEKNWty6qhT8tzkeD9Ajz32dFTez8xJhSEY5Ya1t7un7z5BfpnYMrYQAdVv7klONHB4j3NpfofljZCklTAfKo9lZAaPvePO4GZAErO9T470HEdzjcZAdMtu3CoEuYAypyfwS007qMQkBYxwxkpGb5FpMqFk9AuX4IslJZCZBAWaDlu4aytat1S8SJbuPePVdXPUXZCmALjkmEVowz6Yf1QZD'
-    #
-    #
-    facebook = OpenFacebook(token)
+    # token = 'CAAU2iNy6lsgBAEKNWty6qhT8tzkeD9Ajz32dFTez8xJhSEY5Ya1t7un7z5BfpnYMrYQAdVv7klONHB4j3NpfofljZCklTAfKo9lZAaPvePO4GZAErO9T470HEdzjcZAdMtu3CoEuYAypyfwS007qMQkBYxwxkpGb5FpMqFk9AuX4IslJZCZBAWaDlu4aytat1S8SJbuPePVdXPUXZCmALjkmEVowz6Yf1QZD'
+    # facebook = OpenFacebook(token)
     # print facebook.get('me/likes/')['data'][0]['id']
-    print facebook.get('deadspace/')['id']
+    # print facebook.get('deadspace/')['id']
 
 
 def main():

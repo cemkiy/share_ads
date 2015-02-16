@@ -122,7 +122,7 @@ def registered_facebook(request):
 
     try:
         #control every account just one once
-        if len(Social_Data.objects.filter(publisher=publisher, account_type=0)) >= 1:
+        if not len(Social_Data.objects.filter(publisher=publisher, account_type=0)) == 0:
             social_network = Social_Data.objects.get(publisher=publisher, account_type=0)
             social_network.account_id = profile_id
             social_network.account_token = long_access_token
@@ -171,7 +171,7 @@ def registered_twitter(request, oauth_token=None, oauth_token_secret=None):
                       access_token_key=resp.get('oauth_token'),
                       access_token_secret=resp.get('oauth_token_secret'))
 
-            if not len(Social_Data.objects.filter(publisher=publisher, account_type=1)) >= 1: # control every account just one once
+            if not len(Social_Data.objects.filter(publisher=publisher, account_type=1)) == 0: # control every account just one once
                 social_network = Social_Data.objects.get(publisher=publisher, account_type=1)
                 social_network.account_id = resp.get('oauth_token')
                 social_network.account_token = resp.get('oauth_token_secret')

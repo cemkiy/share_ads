@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
-from advertiser.models import Campaign, Advertiser, Activation
+from advertiser.models import Campaign, Advertiser
 from publisher.models import Published_Adverts
+from share_ads.models import Activation
 
 __author__ = 'cemkiy'
 from django.shortcuts import render, render_to_response
