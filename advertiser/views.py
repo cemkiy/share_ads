@@ -27,9 +27,8 @@ def new_advertiser(request):
             email = request.POST.get('email')
             first_name = request.POST.get('first_name')
             last_name = request.POST.get('last_name')
-            member_user_auth = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name, is_active=False)
-            # member_user_auth.is_staff = False
-            # member_user_auth.is_active = False
+            member_user_auth = User.objects.create_user(username=username, email=email, password=password, first_name=first_name, last_name=last_name)
+            member_user_auth.is_active = False
             member_user_auth.save()
 
             new_advertiser = advertiser_form.save(commit=False)

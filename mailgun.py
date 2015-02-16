@@ -13,7 +13,7 @@ class mailgun:
     def __init__(self):
         self.key = 'key-2361ddc59bfd7a45df0acdac47b84390'
         self.sandbox = 'sandboxe1e55da3f7a7423ba6d16a58c3ffbee8.mailgun.org'
-        self.recipient = 'info@kassandraproject.com'
+        self.recipient = 'info@shareads.com'
 
     def send_mail(self, email_to, text, subject):
         request_url = 'https://api.mailgun.net/v2/{0}/messages'.format(self.sandbox)
@@ -37,6 +37,11 @@ class mailgun:
         })
         output = 'Status: {0}'.format(request.status_code) + 'Body:   {0}'.format(request.text)
         print output
+
+    def render_template(self, template_name, context):
+        template = get_template(template_name)
+        content = template.render(context)
+        return content
 
 
     # def render_template(self, template_name, context):

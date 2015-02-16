@@ -52,9 +52,10 @@ def joined_publisher_to_a_campaign(request, campaign_id):
 
 def user_activation(request, identity):
     try:
-        active = Activation.objects.get(activivation_code=identity)
+        active = Activation.objects.get(activation_code=identity)
         user = User.objects.get(id=active.user.id)
-    except:
+    except Exception as e:
+        print e
         return HttpResponseRedirect('/sorry')
     try:
         if user:
@@ -62,5 +63,6 @@ def user_activation(request, identity):
             user.save()
             active.delete()
             return HttpResponseRedirect('/accounts/login/')
-    except:
+    except Exception as e:
+        print e
         return HttpResponseRedirect('/sorry')
