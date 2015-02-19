@@ -5,3 +5,7 @@ class contact_us_form(forms.Form):
     name = forms.CharField(max_length=250)
     email = forms.CharField(max_length=250)
     message = forms.CharField(max_length=500)
+
+
+class forgotten_password_form(forms.Form):
+    email = forms.CharField(max_length=250)

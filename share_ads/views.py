@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.template import RequestContext
+from django.template import RequestContext, Context
+from hashids import Hashids
 from advertiser.models import Campaign, Advertiser
 from mailgun import mailgun
 from publisher.models import Published_Adverts
-from share_ads.forms import contact_us_form
+from share_ads.forms import contact_us_form, forgotten_password_form
 from share_ads.models import Activation
 
 __author__ = 'cemkiy'
@@ -83,3 +84,27 @@ def user_activation(request, identity):
     except Exception as e:
         print e
         return HttpResponseRedirect('/sorry')
+
+def forgotten_password(request):
+    text_for_result = ''
+    form = forgotten_password_form()
+    if request.method == 'POST':
+        form = forgotten_password_form(request.POST)
+        if form.is_valid():
+            try:
+                email = request.POST.get('email')
+                member = User.objects.filter(email=email)[0]
+                hashids = Hashids()
+                hashid = hashids.encrypt(member.username)
+                member.set_password(str(hashid))
+                if member:
+                    context = Context({'username': member.username, 'password': str(hashid)})
+                    mailgun_operator = mailgun()
+                    mailgun_operator.send_mail_with_html(email_to=member.email, template_name='mail_forgotten_password.html', context=context, subject='Forgotten Password')
+                    text_for_result = 'We are send your password to your email.'
+                else:
+                    text_for_result = 'Wrong mail address.'
+            except Exception as e:
+                print e
+                return HttpResponseRedirect('/sorry')
+    return render_to_response('forgotten_password.html', locals(), context_instance=RequestContext(request))
