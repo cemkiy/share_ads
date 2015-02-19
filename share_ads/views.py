@@ -2,7 +2,9 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
 from advertiser.models import Campaign, Advertiser
+from mailgun import mailgun
 from publisher.models import Published_Adverts
+from share_ads.forms import contact_us_form
 from share_ads.models import Activation
 
 __author__ = 'cemkiy'
@@ -40,7 +42,22 @@ def terms(request):
     return render_to_response('terms.html', context_instance=RequestContext(request))
 
 def contact_us(request):
-    return render_to_response('contact_us.html', context_instance=RequestContext(request))
+    form = contact_us_form()
+    if request.method == 'POST':
+        form = contact_us_form(request.POST)
+        if form.is_valid():
+            try:
+                subject = request.POST.get('subject')
+                email = request.POST.get('email')
+                name = request.POST.get('name')
+                message = request.POST.get('message')
+
+                mailgun_operator = mailgun()
+                mailgun_operator.send_mail('se.cemkiy@gmail.com', "name:" + name + " " + "email:" + email + " " + "subject:" + subject + " " + "message:" + message)
+            except Exception as e:
+                print e
+                return HttpResponseRedirect('/sorry')
+    return render_to_response('contact_us.html', locals(), context_instance=RequestContext(request))
 
 def joined_publisher_to_a_campaign(request, campaign_id):
     try:
