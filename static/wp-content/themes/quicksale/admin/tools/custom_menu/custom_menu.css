@@ -1,0 +1,261 @@
+/* Be sure that your main menu has id "#mainmenu" */
+ul#mainmenu {
+	position: relative;
+}
+ul#mainmenu .custom_view_item {
+	position: static !important;
+}
+ul#mainmenu [class^="icon-"]:before,
+ul#mainmenu [class*=" icon-"]:before { margin-left:0; margin-right:0.5em; }
+ul#mainmenu ul.menu-panel {
+	display: none;
+	z-index: 9999;
+	position: absolute;
+	top: 60px;
+	left: 0;
+	overflow:hidden;
+	width:auto;
+	/*width:100%;*/
+	border:none;
+    padding: 0 10px;
+}
+.menu_center ul#mainmenu ul.menu-panel { width:100%; }
+ul#mainmenu ul.menu-panel > li { margin:0; padding:0; }
+ul#mainmenu ul.menu-panel > li > ul li.menu-item-has-children:before { display:none; }
+
+header.fixedTopMenu .topWrap .menuTopWrap.topMenuStyleLine > ul#mainmenu > li > .menu-panel {
+    top: 82px;
+}
+ul#mainmenu .menu-panel ul {
+	position: static !important;
+	display: block !important;
+	opacity: 1 !important;
+	margin:0;
+	padding:0;
+	border: none;
+	width:auto;
+}
+ul#mainmenu .menu-panel > li > ul {
+	padding: 0 0 6px;
+}
+ul#mainmenu .menu-panel > li > ul > li > a {
+	display: block;
+	text-transform:uppercase;
+	margin:0;
+	font-weight:400;
+	background:none !important;
+}
+
+/* Placeholder */
+ul#mainmenu .menu-panel .item_placeholder .thumb_wrap {
+	margin-bottom: 20px;
+}
+ul#mainmenu .menu-panel .item_placeholder .thumb_wrap img {
+	vertical-align: top;
+}
+ul#mainmenu .menu-panel .item_placeholder .item_title {
+	text-transform: none;
+	margin: 0 0 6px 0;
+	padding:0;
+}
+ul#mainmenu .menu-panel .item_placeholder .item_title a {
+	text-decoration: none;
+}
+ul#mainmenu .menu-panel .item_placeholder .item_info {
+	text-transform: none;
+	font-style: italic;
+	overflow: hidden;
+}
+ul#mainmenu .menu-panel .item_placeholder .item_info > * {
+	float: left;
+	font-size:12px;
+}
+.topMenuStyleLine ul#mainmenu .menu-panel .item_placeholder .item_title,
+.topMenuStyleLine ul#mainmenu .menu-panel .item_placeholder .item_info > * > span,
+.topMenuStyleLine ul#mainmenu .menu-panel .item_placeholder .item_info > * > em {	 }
+ul#mainmenu .menu-panel .item_placeholder .item_info .item_pubdate {
+	position: relative;
+	margin-right: 8px;
+}
+
+/* Style "Colummns" */
+ul#mainmenu .menu-panel ul.columns {
+	overflow: hidden;
+	border:none !important;
+	box-shadow: none !important;
+}
+ul#mainmenu .menu-panel ul.columns { 
+	padding:0;
+}
+ul#mainmenu .menu-panel ul.columns li {
+	background: none;
+}
+ul#mainmenu .menu-panel ul.columns > li {
+	float: left;
+	margin: 0;
+	padding: 25px 0;
+	max-width: 200px;
+    min-width: 130px;
+}
+.topMenuStyleLine ul#mainmenu .menu-panel ul.columns > li + li { border-color: transparent; }
+ul#mainmenu .menu-panel ul.columns > li > a { padding:0 20px 12px; }
+.topMenuStyleLine ul#mainmenu .menu-panel ul.columns > li > a { font-weight: 600; letter-spacing: 0.3px; color: #353535; }
+.topMenuStyleLine ul#mainmenu .menu-panel ul.columns > li > a:hover { cursor:default; }
+.topMenuStyleLine ul#mainmenu .menu-panel ul.columns > li > a:hover .menu_item_description { color: rgba(255,255,255,0.7) !important; }
+ul#mainmenu .menu-panel ul.columns > li ul li {
+	margin:0 1px;
+}
+ul#mainmenu .menu-panel ul.columns > li ul li a {
+	display:block;
+	width: 100%;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box; 
+	margin:0;
+}
+.topMenuStyleLine ul#mainmenu .menu-panel ul.columns > li ul li a {	padding: 5px 20px; }
+ul#mainmenu .menu-panel ul.columns > li a .menu_icon {
+	margin-right: 10px;
+	width:12px;
+	display: inline-block;
+	text-align:center;
+	opacity: 0.8;
+}
+.menu_icon_padding {
+	padding-left:22px;	/* Sum prev margin and width */
+}
+.topMenuStyleLine ul#mainmenu > li ul li a .menu_icon { color: #888888; }
+.topMenuStyleLine ul#mainmenu > li ul li a:hover .menu_icon { color:inherit; }
+ul#mainmenu .menu-panel ul.columns > li a .menu_icon:before {
+	width: auto;
+	margin: 0;
+}
+
+/* Style "Thumb Title" */
+ul#mainmenu .menu-panel > li > ul.thumb_title {
+	margin: 0;
+	overflow: hidden;
+	width: auto;
+	border:none;
+	padding:0;
+}
+ul#mainmenu .menu-panel ul.thumb_title > li {
+	float: left;
+	overflow: hidden;
+	padding: 25px 0;
+	margin:0;
+    width: 435px;
+}
+ul#mainmenu .menu-panel ul.thumb_title > li + li {
+    border-left: 1px solid rgba(142, 144, 146, 0.2);
+    margin-left: -1px;
+}
+ul#mainmenu .menu-panel ul.thumb_title > li:nth-child(2n+3) { clear:both; }
+ul#mainmenu .menu-panel ul.thumb_title > li > a { font-weight: 600; letter-spacing: 1px;  padding: 0 20px 12px; }
+ul#mainmenu .menu-panel ul.thumb_title > li + li > a { padding-left:30px; }
+ul#mainmenu .menu-panel ul.thumb_title > li > ul {
+	float: right;
+	width: 215px;
+	border:none;
+	margin-top:-10px;
+}
+ul#mainmenu .menu-panel ul.thumb_title > li + li > ul {
+    width: 205px;
+}
+ul#mainmenu .menu-panel ul.thumb_title > li > ul li {
+	margin: 0;
+}
+ul#mainmenu .menu-panel ul.thumb_title > li ul li a { padding: 5px 20px; }
+ul#mainmenu .menu-panel.thumb_title > li > ul > li > ul li a { padding: 5px 15px; }
+ul#mainmenu .menu-panel.thumb_title > li > ul > li > ul li a:before {
+    display: block;
+    float: left;
+    font-family: "fontello";
+    height: 30px;
+    text-align: center;
+    width: 16px;
+    content: '\e804';
+}
+ul#mainmenu .menu-panel.thumb_title > li > ul > li .item_placeholder {
+	float: left;
+	width: 200px;
+	margin-right:0;
+}
+ul#mainmenu .menu-panel ul.thumb_title > li .item_placeholder { margin-left: 20px; }
+ul#mainmenu .menu-panel ul.thumb_title > li + li .item_placeholder { margin-left: 30px; }
+ul#mainmenu .menu-panel.thumb_title .item_placeholder .item_info .item_comments {
+	float: right;
+	margin-right: 1px;
+}
+ul#mainmenu .menu-panel.thumb_title .item_placeholder .item_info .item_comments span {
+	vertical-align: middle;
+}
+ul#mainmenu .menu-panel.thumb_title .item_placeholder .thumb_wrap {
+	margin-bottom: 5px;
+}
+
+
+/* Style "Thumbs" */
+ul#mainmenu .menu-panel.thumb {
+	padding: 15px 15px 20px;
+	width: 304px;
+}
+ul#mainmenu .menu-panel.thumb ul {
+	overflow: hidden;
+	padding:0;
+	margin:0;
+	border:none;
+}
+ul#mainmenu .menu-panel ul.thumb > li {
+	float: left;
+	width: 75px;
+	margin: 0 1px 1px 0;
+}
+ul#mainmenu .menu-panel ul.thumb > li a {
+	padding: 0;
+	height: 75px;
+	background: #dddddd;
+}
+ul#mainmenu .menu-panel.thumb .item_placeholder .item_info .item_pubdate:after {
+	border-right: 1px solid #888888;
+	margin-left: 10px;
+	height: 11px;
+	display: inline-block;
+	vertical-align: middle;
+	content: "";
+}
+ul#mainmenu .menu-panel.thumb .item_placeholder .item_info .item_pubdate:after { border-color: #888888; }
+ul#mainmenu .menu-panel.thumb .item_placeholder .item_title a {
+	font-size:17px;
+	line-height:24px;
+	padding:0;
+	margin:0;
+}
+ul#mainmenu .menu-panel.thumb .item_placeholder .item_title a { padding: 0 !important; border: none !important; }
+ul#mainmenu .menu-panel.thumb .item_placeholder .item_title a:hover { background: none !important; }
+
+/* Menu items description */
+.menu_item_description {
+	display: block !important;
+	line-height:12px !important;
+	font-size:10px;
+	font-weight:300;
+	text-transform:none;
+	margin-top: 4px;
+}
+a:hover .menu_item_description { color: inherit; }
+.menuTopWrap ul#mainmenu > li > a > .menu_item_description {
+	margin-top: -6px;
+}
+.menuTopWrap ul#mainmenu > li > a > .menu_item_description  {
+	-webkit-transition: all 0.3s ease-out;
+	   -moz-transition: all 0.3s ease-out;
+	    -ms-transition: all 0.3s ease-out;
+	     -o-transition: all 0.3s ease-out;
+	        transition: all 0.3s ease-out;
+}
+.menuTopWrap ul#mainmenu > li:hover > a > .menu_item_description {
+	margin-top:10px;
+}
+.fixedTopMenu .menuTopWrap ul#mainmenu > li:hover > a > .menu_item_description {
+	opacity: 0;
+}
