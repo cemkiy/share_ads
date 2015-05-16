@@ -2640,7 +2640,7 @@ input[type="button"],
 .squareButton.active > span { color:#fff; cursor:default; margin:0; }
 .squareButton > span { cursor:default; }
 
-.squareButton > a.selected:hover,	
+.squareButton > a.selected:hover,
 .squareButton > a.selected:active{ border: 1px solid #ddd;color: #777777; margin:0px;
 	-webkit-box-shadow: none;
 	-moz-box-shadow:    none;
