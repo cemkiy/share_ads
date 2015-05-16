@@ -1036,7 +1036,7 @@ header.menu_left .topWrap .logo a { display:inline-block; }
 .topWrap .usermenu_area .menuItemRight span.contact_info_time:before { content: '\e87a'; font-size: 14px; }
 .topWrap .usermenu_area .menuItemRight span.contact_info_email:before { content: '\e81c'; }
 .topWrap .usermenu_area .menuItemLeft span.contact_info_location:before { content: '\e83b'; }
-.topWrap .usermenu_area ul.usermenu_list { padding: 0; margin: 0; display:none; }
+.topWrap .usermenu_area ul.usermenu_list { padding: 0; margin: 0; }
 .topWrap .usermenu_area ul.usermenu_list:after{content: ''; height: 0; display: block; clear: both;} 
 .topWrap .usermenu_area ul.usermenu_list > li { text-align: left; list-style: none; position: relative; height: 50px; line-height: 50px; float: none; display: inline-block; }
 .topWrap .usermenu_area ul.usermenu_list > li a:before,

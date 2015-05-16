@@ -1,14 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<a href="/new_advertiser">Advertiser Sign up</a>
-<a href="/accounts/login">login</a>
-<a href="/campaign_pool">campaigns</a>
-<a href="/advertiser/advertiser_profile">profile</a>
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block head %}{% endblock %}
+
+{% block slider %}{% endblock %}
+
+{% block content %}
+    <div class="itemscope" itemscope="" itemtype="http://schema.org/Article">
+        <section class="post post_format_standard postLeft no_margin post-330 page type-page status-publish hentry">
+            <article class="post_content">
+                <div class="post_text_area" itemprop="articleBody">
+                    <div class="sc_section  margin_top_large sc_aligncenter" style="color:#353535;">
+                        <div class="main">
+                            <div class="sc_content main  sc_aligncenter text_styling"
+                                 style="font-size:14px;line-height:22px;color:#979797;">
+                                <a href="/new_advertiser">Advertiser Sign up</a><br/>
+                                <a href="/accounts/login">login</a><br/>
+                                <a href="/campaign_pool">campaigns</a><br/>
+                                <a href="/advertiser/advertiser_profile">profile</a>
+                                <br/>
+                                <br/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </div>
+{% endblock %}
+
+{% block script %}{% endblock %}
