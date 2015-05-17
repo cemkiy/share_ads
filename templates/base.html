@@ -55,13 +55,13 @@
     <link rel='stylesheet' id='dsidx-css' href='http://cdn4.diverse-cdn.com/api/combo-css/config=dsidxpress.css/a30ae7'
           type='text/css' media='all'/>
     <link rel='stylesheet' id='dsidxpress-unconditional-css'
-          href="{% static 'wp-content/plugins/dsidxpress/css/client50fa.css?ver=4.2.1' %}" type='text/css' media='all'/>
+          href="{% static 'wp-content/plugins/dsidxpress/css/client50fa.css' %}" type='text/css' media='all'/>
     <link rel='stylesheet' id='dsidxwidgets-unconditional-css'
-          href="{% static 'wp-content/plugins/dsidxpress/dsidxwidgets/css/client50fa.css?ver=4.2.1' %}" type='text/css' media='all'/>
+          href="{% static 'wp-content/plugins/dsidxpress/dsidxwidgets/css/client50fa.css' %}" type='text/css' media='all'/>
     <link rel='stylesheet' id='jquery_reject-style-css'
           href="{% static 'wp-content/themes/quicksale/js/jreject/css/jquery.reject.css' %}" type='text/css' media='all'/>
     <link rel='stylesheet' id='rs-plugin-settings-css'
-          href="{% static 'wp-content/plugins/revslider/rs-plugin/css/settings1dc6.css?ver=4.6.5' %}" type='text/css' media='all'/>
+          href="{% static 'wp-content/plugins/revslider/rs-plugin/css/settings1dc6.css' %}" type='text/css' media='all'/>
     <style id='rs-plugin-settings-inline-css' type='text/css'>
         .tp-caption a {
             color: #ff7302;
@@ -77,7 +77,7 @@
         }
     </style>
     <link rel='stylesheet' id='wp-booking-calendar-public-mainStyle-css-css'
-          href="{% static 'wp-content/plugins/wp-booking-calendar/public/css/mainstyle50fa.css?ver=4.2.1' %}" type='text/css'
+          href="{% static 'wp-content/plugins/wp-booking-calendar/public/css/mainstyle50fa.css' %}" type='text/css'
           media='all'/>
     <!--[if lte IE 8]>
 	<link rel='stylesheet' id='wp-booking-calendar-public-ie-style-css'  href='http://quicksale.themerex.net/wp-content/plugins/wp-booking-calendar/public/css/ie.css?ver=4.2.1' type='text/css' media='all' />
@@ -121,23 +121,23 @@
           media='all'/>
     <link rel='stylesheet' id='theme-skin-responsive-css'
           href="{% static 'wp-content/themes/quicksale/skins/general/general-responsive.css' %}" type='text/css' media='all'/>
-    <script type='text/javascript' src="{% static 'wp-includes/js/jquery/jquery4a80.js?ver=1.11.2' %}"></script>
-    <script type='text/javascript' src="{% static 'wp-includes/js/jquery/jquery-migrate.min1576.js?ver=1.2.1' %}"></script>
+    <script type='text/javascript' src="{% static 'wp-includes/js/jquery/jquery4a80.js' %}"></script>
+    <script type='text/javascript' src="{% static 'wp-includes/js/jquery/jquery-migrate.min1576.js' %}"></script>
     <script type='text/javascript'
             src='http://cdn4.diverse-cdn.com/api/combo-js/config=dsidxpress.js/fdd4c0?ver=2.1.23'></script>
     <script type='text/javascript'
-            src="{% static 'wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.tools.min1dc6.js?ver=4.6.5' %}"></script>
+            src="{% static 'wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.tools.min1dc6.js' %}"></script>
     <script type='text/javascript'
-            src="{% static 'wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.revolution.min1dc6.js?ver=4.6.5' %}"></script>
+            src="{% static 'wp-content/plugins/revslider/rs-plugin/js/jquery.themepunch.revolution.min1dc6.js' %}"></script>
     <script type='text/javascript'
-            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/jquery.bxSlider.min50fa.js?ver=4.2.1' %}"></script>
+            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/jquery.bxSlider.min50fa.js' %}"></script>
     <script type='text/javascript'
-            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/tmt_libs/tmt_core50fa.js?ver=4.2.1' %}"></script>
+            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/tmt_libs/tmt_core50fa.js' %}"></script>
     <script type='text/javascript'
-            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/tmt_libs/tmt_form50fa.js?ver=4.2.1' %}"></script>
+            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/tmt_libs/tmt_form50fa.js' %}"></script>
     <script type='text/javascript'
-            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/tmt_libs/tmt_validator50fa.js?ver=4.2.1' %}"></script>
-    <script type='text/javascript' src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/lib50fa.js?ver=4.2.1' %}"></script>
+            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/tmt_libs/tmt_validator50fa.js' %}"></script>
+    <script type='text/javascript' src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/lib50fa.js' %}"></script>
     <script type='text/javascript'>
         /* <![CDATA[ */
         var WPBookingCalendarSettings = {
@@ -159,98 +159,12 @@
         /* ]]> */
     </script>
     <script type='text/javascript'
-            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/wach.calendar50fa.js?ver=4.2.1' %}"></script>
-    <meta name="generator" content="WordPress 4.2.1"/>
-    <link rel='canonical' href='index.html'/>
-    <link rel='shortlink' href='index.html'/>
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            // CUSTOM AJAX CONTENT LOADING FUNCTION
-            var ajaxRevslider = function (obj) {
-
-                // obj.type : Post Type
-                // obj.id : ID of Content to Load
-                // obj.aspectratio : The Aspect Ratio of the Container / Media
-                // obj.selector : The Container Selector where the Content of Ajax will be injected. It is done via the Essential Grid on Return of Content
-
-                var content = "";
-
-                data = {};
-
-                data.action = 'revslider_ajax_call_front';
-                data.client_action = 'get_slider_html';
-                data.token = '987c34c108';
-                data.type = obj.type;
-                data.id = obj.id;
-                data.aspectratio = obj.aspectratio;
-
-                // SYNC AJAX REQUEST
-                jQuery.ajax({
-                    type: "post",
-                    url: "http://quicksale.themerex.net/wp-admin/admin-ajax.php",
-                    dataType: 'json',
-                    data: data,
-                    async: false,
-                    success: function (ret, textStatus, XMLHttpRequest) {
-                        if (ret.success == true)
-                            content = ret.data;
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
-
-                // FIRST RETURN THE CONTENT WHEN IT IS LOADED !!
-                return content;
-            };
-
-            // CUSTOM AJAX FUNCTION TO REMOVE THE SLIDER
-            var ajaxRemoveRevslider = function (obj) {
-                return jQuery(obj.selector + " .rev_slider").revkill();
-            };
-
-            // EXTEND THE AJAX CONTENT LOADING TYPES WITH TYPE AND FUNCTION
-            var extendessential = setInterval(function () {
-                if (jQuery.fn.tpessential != undefined) {
-                    clearInterval(extendessential);
-                    if (typeof(jQuery.fn.tpessential.defaults) !== 'undefined') {
-                        jQuery.fn.tpessential.defaults.ajaxTypes.push({
-                            type: "revslider",
-                            func: ajaxRevslider,
-                            killfunc: ajaxRemoveRevslider,
-                            openAnimationSpeed: 0.3
-                        });
-                        // type:  Name of the Post to load via Ajax into the Essential Grid Ajax Container
-                        // func: the Function Name which is Called once the Item with the Post Type has been clicked
-                        // killfunc: function to kill in case the Ajax Window going to be removed (before Remove function !
-                        // openAnimationSpeed: how quick the Ajax Content window should be animated (default is 0.3)
-                    }
-                }
-            }, 30);
-        });
-    </script>
+            src="{% static 'wp-content/plugins/wp-booking-calendar/public/js/wach.calendar50fa.js' %}"></script>
     <style type="text/css">.recentcomments a {
         display: inline !important;
         padding: 0 !important;
         margin: 0 !important;
     }</style>
-    <script type="text/javascript">
-        if (typeof localdsidx == "undefined" || !localdsidx) {
-            var localdsidx = {};
-        }
-        ;
-        localdsidx.pluginUrl = "wp-content/plugins/dsidxpress/index.html";
-        localdsidx.homeUrl = "index.html";
-    </script>
-    <script type="text/javascript">
-        if (typeof localdsidx == "undefined" || !localdsidx) {
-            var localdsidx = {};
-        }
-        ;
-        localdsidx.pluginUrl = "wp-content/plugins/dsidxpress/index.html";
-        localdsidx.homeUrl = "index.html";
-    </script>
-
     {% block head %}{% endblock %}
 </head>
 <body class="home page page-id-330 page-template-default themerex_body fullscreen top_panel_above theme_skin_general">
@@ -367,18 +281,6 @@
 
             <div class="content">
 				{% block content %}{% endblock %}
-                <!-- Post/page views count increment -->
-                <script type="text/javascript">
-                    jQuery(document).ready(function () {
-                        jQuery.post(THEMEREX_ajax_url, {
-                            action: 'post_counter',
-                            nonce: THEMEREX_ajax_nonce,
-                            post_id: 330,
-                            views: 15600
-                        });
-                    });
-                </script>
-
             </div>
             <!-- </div> class="content"> -->                </div>
         <!-- /.mainWrap -->
@@ -459,13 +361,6 @@
     THEMEREX_GEOCODE_ERROR = "Geocode was not successful for the following reason:";
     THEMEREX_GOOGLE_MAP_NOT_AVAIL = "Google map API not available!";
     THEMEREX_HOVER_LINK = "Enlarge";
-
-    // AJAX parameters
-    var THEMEREX_ajax_url = "http://quicksale.themerex.net/wp-admin/admin-ajax.php";
-    var THEMEREX_ajax_nonce = "e2331b4ccd";
-
-    // Site base url
-    var THEMEREX_site_url = "index.html";
 
     // Theme base font
     var THEMEREX_theme_font = "";
@@ -573,11 +468,11 @@
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/swiper/idangerous.swiper-2.7.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/swiper/idangerous.swiper.scrollbar-2.4.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/jquery.flexslider.min.js' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/core.mine899.js?ver=1.11.4' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/widget.mine899.js?ver=1.11.4' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/tabs.mine899.js?ver=1.11.4' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/effect.mine899.js?ver=1.11.4' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/effect-fade.mine899.js?ver=1.11.4' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/core.mine899.js' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/widget.mine899.js' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/tabs.mine899.js' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/effect.mine899.js' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/effect-fade.mine899.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/jquery.cookie.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/jquery.easing.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/superfish.min.js' %}"></script>
@@ -587,10 +482,10 @@
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/shortcodes/shortcodes_init.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/_utils.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/_front.js' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/position.mine899.js?ver=1.11.4' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/menu.mine899.js?ver=1.11.4' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/autocomplete.mine899.js?ver=1.11.4' %}"></script>
-<script type='text/javascript' src="{% static 'wp-content/plugins/dsidxpress/js/autocomplete9651.js?ver=2.1.23' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/position.mine899.js' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/menu.mine899.js' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/autocomplete.mine899.js' %}"></script>
+<script type='text/javascript' src="{% static 'wp-content/plugins/dsidxpress/js/autocomplete9651.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/_form_login.js' %}"></script>
 <script type='text/javascript'
         src="{% static 'wp-content/themes/quicksale/js/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
@@ -602,13 +497,12 @@
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/picker/picker.start.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/diagram/chart.min.js' %}"></script>
 <script type='text/javascript'
-        src="{% static 'wp-content/themes/quicksale/js/diagram/diagram.raphael.minca7f.js?ver=no-compose' %}"></script>
+        src="{% static 'wp-content/themes/quicksale/js/diagram/diagram.raphael.minca7f.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/jquery.isotope.min.js' %}"></script>
-<script type='text/javascript' src='http://maps.google.com/maps/api/js?sensor=false'></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/_googlemap_init.js' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/mouse.mine899.js?ver=1.11.4' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/draggable.mine899.js?ver=1.11.4' %}"></script>
-<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/sortable.mine899.js?ver=1.11.4' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/mouse.mine899.js' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/draggable.mine899.js' %}"></script>
+<script type='text/javascript' src="{% static 'wp-includes/js/jquery/ui/sortable.mine899.js' %}"></script>
 <script type='text/javascript' src="{% static 'wp-content/themes/quicksale/js/_customizer.js' %}"></script>
 {% block script %}{% endblock %}
 </body>
