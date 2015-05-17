@@ -1,10 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block head %}{% endblock %}
+
+{% block slider %}{% endblock %}
+
+{% block content %}
+    <section class="post no_margin" style="margin-top: 80px">
+        <article class="post_content">
+            <div class="page404">
+                <div class="titleError"><span>Oops!</span>404</div>
+                <div class="h4 sc_title_underline">Sorry! page not found!</div>
+                <p>You can also go back to the <a href="/">Share Ads</a> <br>and start
+                    browsing from here</p>
+            </div>
+        </article>
+    </section>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
