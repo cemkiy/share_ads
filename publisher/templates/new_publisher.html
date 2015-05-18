@@ -1,24 +1,115 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<ul>
-    {% if form.errors %}
-        <p>{{ form.errors }}</p>
-    {% elif  publisher_form.errors %}
-        <p>{{ publisher_form.errors }}</p>
-    {% endif %}
-<form method='POST'>
-    {% csrf_token %}
-    <table border=1>
-        {{ form }}
-        {{ publisher_form }}
-    </table>
-    <input type='submit' value='Submit'/>
-</form>
-</ul>
-</body>
-</html>
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block head %}
+
+    <style type="text/css">
+        #input-submit {
+            color: #FFF;
+            display: block;
+            position: relative;
+            font-size: 15px;
+            font-weight: 500;
+            background-color: #FA6839;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0px 30px;
+            vertical-align: middle;
+            z-index: 1;
+            border: medium none;
+            border-radius: 31px;
+            overflow: visible;
+            margin: 7px 0px;
+            height: 53px;
+            line-height: 53px;
+        }
+
+        #input-submit:hover {
+            color: #FFF;
+            background-color: rgba(255, 105, 55, 0.66);
+        }
+
+    </style>
+{% endblock %}
+
+{% block slider %}{% endblock %}
+
+{% block content %}
+    <section class="post post_format_standard postLeft no_margin post-429 page type-page status-publish hentry">
+        <article class="post_content">
+            <div class="post_text_area" itemprop="articleBody">
+                <div class="sc_section  margin_top_large margin_bottom_big">
+                    <div class="main">
+                        <h2 class="sc_title_align_center sc_title sc_title_underline  color_1"
+                            style="text-align:center;">Sign In</h2>
+
+                        <div class="sc_content main  margin_bottom_middle sc_aligncenter text_styling"
+                             style="font-size:16px;line-height:28px;"> Do not miss the privilege<br/>
+                            Share Ads!
+                        </div>
+                        <div class="dark sc_contact_form sc_contact_form_contact  margin_top_middle"
+                             style="margin-right:12%;margin-left:12%;">
+                            <form method='POST'>
+                                {% csrf_token %}
+                                <div class="columnsWrap">
+                                    {% for field in form %}
+                                        {% if not field.is_hidden %}
+                                            <div class="columns1_2"><label class="required"
+                                                    >{{ field.label_tag }}</label>
+                                                <input placeholder="" id="{{ field.auto_id }}"
+                                                       name="{{ field.html_name }}" type="text" maxlength="254"></div>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% for field in publisher_form %}
+                                        {% if not field.is_hidden %}
+{#                                            {% if field.auto_id == 'id_birthday' %}#}
+{#                                                <input placeholder="Date"#}
+{#                                                       class="sc_contact_form_date js__datepicker picker__input"#}
+{#                                                       type="text" name="{{ field.html_name }}" id="{{ field.auto_id }}"#}
+{#                                                       aria-haspopup="true" aria-expanded="false" aria-readonly="false"#}
+{#                                                       aria-owns="P1710399523_root ">#}
+{#                                            {% endif %}#}
+                                            <div class="columns1_2"><label class="required"
+                                                    >{{ field.label_tag }}</label>
+                                                <input placeholder="" id="{{ field.auto_id }}"
+                                                       name="{{ field.html_name }}" type="text" maxlength="254"></div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="sc_contact_form_button">
+                                    <div class="squareButton sc_button_style_accent_2 sc_button_size_big global big">
+                                        <input type="submit" id="input-submit" value="Submit"/>
+                                    </div>
+                                </div>
+                                <div class="result sc_infobox">
+                                    {% if form.errors %}
+                                        <p>form.errors</p>
+                                    {% endif %}
+                                </div>
+
+                                {% if next %}
+                                    <input type="hidden" name="next" value="{{ next }}">
+                                {% else %}
+                                    <input type="hidden" name="next" value="/">
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tagsWrap">
+
+
+                </div>
+
+            </div>
+            <!-- </div> class="post_text_area" itemprop="articleBody"> -->
+        </article>
+        <!-- 		</article> class="post_content"> -->
+    </section>
+    <!-- 	</section> class="post post_format_standard postLeft no_margin post-429 page type-page status-publish hentry"> -->
+    <!-- Post/page views count increment -->
+{% endblock %}
+
+{% block script %}{% endblock %}

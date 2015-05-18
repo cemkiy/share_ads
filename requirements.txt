@@ -1,4 +1,7 @@
-django-registration=1.0
+Django==1.6.6
+django-registration==1.0
 django_facebook
 python-twitter
 hashids
+South==0.8.4
+Pillow==2.3.0
