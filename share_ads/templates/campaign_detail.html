@@ -1,12 +1,56 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<p>{{ campaign.title }}</p>
-<p>{{ campaign.category}}</p>
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block head %}{% endblock %}
+
+{% block slider %}{% endblock %}
+
+{% block content %}
+    <div class="itemscope" itemscope="" itemtype="http://schema.org/Article">
+        <section class="post post_format_standard postLeft no_margin post-399 page type-page status-publish hentry">
+            <article class="post_content">
+                <div class="post_text_area" itemprop="articleBody">
+                    <div class="sc_section sc_aligncenter">
+                        <div class="main"><h2
+                                class="sc_title_align_center sc_title sc_title_underline  margin_top_large color_1"
+                                style="text-align:center; margin-bottom:80px">Campaign Detail</h2>
+                        </div>
+                    </div>
+                    <div class="sc_section sc_aligncenter" style="color:#979797;background-color:#f5f5f5;">
+                        <div class="columnsFloat autoHeight columnsWrap sc_columns sc_columns_count_2">
+                            <div style="height: 528px;" class="columns1_2 sc_column_item sc_column_item_1 odd first">
+                                <div class="sc_section  margin_right_large margin_left_large">
+                                    <div class="sc_content  margin_top_big sc_aligncenter text_styling"
+                                         style="font-size:14px;line-height:20px;">{{ campaign.category}}
+                                    </div>
+                                    <h2 class="sc_title_align_center sc_title sc_title_underline  color_1"
+                                        style="text-align:center;">{{ campaign.title }}</h2> Purchasing web products from ThemeRex
+                                    company means entrusting your reputation to one of the best web-studios in this
+                                    area. Our team creates our themes with a thought of our customers, therefore our
+                                    creative minds works hard to provide you best technical support in the whole world.
+                                    <br style="clear:both">
+                            </div>
+                            <div class="columns1_2 sc_column_item sc_column_item_2 even"
+                                 style="background-image: url(&quot;../wp-content/uploads/2015/03/home-9.jpg&quot;); height: 528px;"></div>
+                        </div>
+                    </div>
+                    <div class="tagsWrap">
+
+
+                    </div>
+
+                </div>
+                <!-- </div> class="post_text_area" itemprop="articleBody"> -->
+            </article>
+            <!-- 		</article> class="post_content"> -->
+        </section>
+        <!-- 	</section> class="post post_format_standard postLeft no_margin post-399 page type-page status-publish hentry"> -->
+
+
+    </div> <!-- </div> class="itemscope" itemscope itemtype="http://schema.org/Article"> --><!-- </div> -->
+    <!-- .itemscope -->
+
+{% endblock %}
+
+{% block script %}{% endblock %}
