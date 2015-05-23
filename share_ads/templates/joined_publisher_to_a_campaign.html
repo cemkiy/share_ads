@@ -1,16 +1,111 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-{% for published_advert in published_adverts %}
-<a href="{{ published_advert.message_link }}">
-<p>{{ published_advert.social_data.publisher.user.username }}</p>
-<p>{{ published_advert.social_data.get_account_type_display }}</p>
-    </a>
-{% endfor %}
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block head %}{% endblock %}
+
+{% block slider %}{% endblock %}
+
+{% block content %}
+    <div class="content">
+    <div class="itemscope" itemscope="" itemtype="http://schema.org/Article">
+        <section class="post post_format_standard postLeft no_margin post-1430760409 page type-page status-publish">
+            <article class="post_content">
+                <div class="post_text_area" itemprop="articleBody"><!-- seo_title: "" -->
+                    <!-- seo_description: "" -->
+                    <!-- seo_keywords: "" -->
+
+                    <!-- canonical: "" -->
+
+                    <div id="dsidx" class="dsidx-results">
+
+                        <div class="dsidx-paging-control">Properties
+                            1 - 25 of 100
+                            |
+
+                            « First
+
+                            |
+
+                            &lt; Previous
+
+                            |
+                            <a href="">
+                                Next &gt;
+                            </a>
+                            |
+                            <a href="">
+                                Last »
+                            </a>
+                        </div>
+
+
+                        <ol id="dsidx-listings">
+                            {% for published_advert in published_adverts %}
+                                <li class="dsidx-listing">
+                                    <div class="dsidx-media">
+                                        <div class="dsidx-photo"><a
+                                                href="{{ published_advert.message_link }}">
+                                            <img src="../../full.jpg"
+                                                 alt="{{ published_advert.social_data.publisher.user.username }}"
+                                                 title="{{ published_advert.social_data.publisher.user.username }}"></a>
+                                        </div>
+                                    </div>
+                                    <div class="dsidx-primary-data">
+                                        <div class="dsidx-address"><a
+                                                href="{{ published_advert.message_link }}">
+                                            {{ published_advert.social_data.publisher.user.username }}</a>
+                                        </div>
+                                        <div class="dsidx-price">
+                                            {{ published_advert.social_data.get_account_type_display }}
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <hr>
+                                </li>
+                            {% endfor %}
+                        </ol>
+
+                        <div class="dsidx-paging-control">Properties
+                            1 - 25 of 100
+                            |
+
+                            « First
+
+                            |
+
+                            &lt; Previous
+
+                            |
+                            <a href="">
+                                Next &gt;
+                            </a>
+                            |
+                            <a href="">
+                                Last »
+                            </a>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="tagsWrap">
+
+
+                    </div>
+                </div>
+                <!-- </div> class="post_text_area" itemprop="articleBody"> -->
+            </article>
+            <!-- 		</article> class="post_content"> -->
+        </section>
+        <!-- 	</section> class="post post_format_standard postLeft no_margin post-1430760409 page type-page status-publish"> -->
+
+
+    </div> <!-- </div> class="itemscope" itemscope itemtype="http://schema.org/Article"> --><!-- </div> -->
+    <!-- .itemscope -->
+
+{% endblock %}
+
+{% block script %}{% endblock %}
