@@ -1,16 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-{% for campaign in campaigns %}
-<a href="/campaign_detail/{{ campaign.id }}">
-<p>{{ campaign.title }}</p>
-<p>{{ campaign.category }}</p>
-    </a>
-{% endfor %}
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block head %}{% endblock %}
+
+{% block slider %}{% endblock %}
+
+{% block content %}
+    <div class="itemscope" itemscope="">
+        <section class="post post_format_standard postLeft no_margin post-1894 page type-page status-publish hentry">
+            <article class="post_content">
+                <div class="post_text_area" itemprop="articleBody">
+                    <div class="sc_section  margin_bottom_large" style="background-color:#f5f5f5;">
+                        <div class="main"><h2
+                                class="sc_title_align_center sc_title sc_title_underline  margin_top_big color_1"
+                                style="text-align:center;">Campaign Pool</h2>
+
+                            <div class="sc_content main  margin_bottom_middle sc_aligncenter text_styling"
+                                 style="font-size:16px;line-height:24px;color:#979797;"> Share Ads agency assembled the
+                                best team of professional real estate brokers<br>
+                                who offer only top quality services.
+                            </div>
+                            <div class="sc_team  margin_bottom_large">
+                                <div class="sc_columns columnsWrap">
+                                    {% for campaign in campaigns %}
+                                        <div class="columns1_4">
+                                            <div class="sc_team_item sc_team_item_1 odd first">
+                                                <a class="hoverLink" href="/campaign_detail/{{ campaign.id }}">
+                                                    <div class="sc_team_item_avatar">
+                                                        <img class="wp-post-image" alt="t2.jpg"
+                                                             src="{% static 'wp-content/uploads/2015/03/t2-370x370.jpg' %}"
+                                                             height="370" width="370"></div>
+                                                    <div class="sc_team_item_info"><h4
+                                                            class="sc_team_item_title">{{ campaign.title }}</h4>
+
+                                                        <div class="sc_team_item_position">{{ campaign.category }}</div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tagsWrap">
+
+
+                    </div>
+
+                </div>
+                <!-- </div> class="post_text_area" itemprop="articleBody"> -->
+            </article>
+            <!-- 		</article> class="post_content"> -->
+        </section>
+        <!-- 	</section> class="post post_format_standard postLeft no_margin post-1894 page type-page status-publish hentry"> -->
+
+
+    </div> <!-- </div> class="itemscope" itemscope itemtype="http://schema.org/Article"> --><!-- </div> -->
+    <!-- .itemscope -->
+{% endblock %}
+
+{% block script %}{% endblock %}
