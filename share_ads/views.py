@@ -66,7 +66,7 @@ def joined_publisher_to_a_campaign(request, campaign_id):
     except:
         return HttpResponseRedirect('/sorry')
 
-    return render_to_response('campaign_pool.html', locals(), context_instance=RequestContext(request))
+    return render_to_response('joined_publisher_to_a_campaign.html', locals(), context_instance=RequestContext(request))
 
 def user_activation(request, identity):
     try:

@@ -8,3 +8,6 @@ for model in get_models(get_app('advertiser')):
 
 for model in get_models(get_app('publisher')):
     admin.site.register(model)
+
+for model in get_models(get_app('share_ads')):
+    admin.site.register(model)

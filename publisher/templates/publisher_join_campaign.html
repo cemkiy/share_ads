@@ -1,79 +1,151 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <link rel="stylesheet" type="text/css" media="screen"
-          href="https://abs.twimg.com/a/1423456947/css/tfw/intents_rosetta.bundle.css">
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
 
-</head>
-<body class=" tfw tr logged-in ltr nofooter noloki">
+{% block head %}
 
-
-{% if campaign.campaign_type == '0' %}
-    <div id="retweet">
-        {{ html_message_code|safe|escape }}
-        <a href="/publisher/publisher_join_campaign_retweet_campaign/{{ campaign.id }}">Join campaign and retweet</a>
-    </div>
-{% elif campaign.campaign_type == '1' %}
-    {% if form.errors %}
-        <p>{{ form.errors }}</p>
-    {% endif %}
-    <form method='POST' action="/publisher/publisher_join_campaign_share_hashtag/{{ campaign.id }}">
-        {% csrf_token %}
-        {{ form }}
-        <input id="tweet_but" type="submit" class="button selected submit" value="Tweetle">
-    </form>
-
-{% elif campaign.campaign_type == '4' %}
-    <a class="twitter-timeline"
-       href="https://twitter.com/{{ campaign.campaign_data }}"
-       data-widget-id="565497260050763776"
-       data-screen-name="{{ campaign.campaign_data }}"
-       data-show-replies="false"
-       data-tweet-limit="5">
-        Tweets by @{{ campaign.campaign_data }}
-    </a>
-    <script>!function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-        if (!d.getElementById(id)) {
-            js = d.createElement(s);
-            js.id = id;
-            js.src = p + "://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
+    <style type="text/css">
+        #input-submit {
+            color: #FFF;
+            display: block;
+            position: relative;
+            font-size: 15px;
+            font-weight: 500;
+            background-color: #FA6839;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0px 30px;
+            vertical-align: middle;
+            z-index: 1;
+            border: medium none;
+            border-radius: 31px;
+            overflow: visible;
+            margin: 7px 0px;
+            height: 53px;
+            line-height: 53px;
         }
-    }(document, "script", "twitter-wjs");</script>
-    <a href="/publisher/publisher_join_campaign_follow_campaign/{{ campaign.id }}">Join campaign and follow</a>
-{% elif campaign.campaign_type == '2' %}
-    {% if form.errors %}
-        <p>{{ form2.errors }}</p>
-    {% endif %}
-    <form method='POST' action="/publisher/publisher_join_campaign_share_campaign/{{ campaign.id }}">
-        {% csrf_token %}
-        {{ form2 }}
-        <input type="submit" value="Share">
-    </form>
-{% else %}
-    <div id="fb-root"></div>
-    <script>(function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/tr_TR/sdk.js#xfbml=1&appId=1467336330221256&version=v2.0";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-    <div class="fb-like-box" data-href="https://www.facebook.com/{{ campaign.campaign_data }}" data-colorscheme="light"
-         data-show-faces="true" data-header="true" data-stream="false" data-show-border="true"></div>
-    <a href="/publisher/publisher_join_campaign_like_campaign/{{ campaign.id }}">Control</a>
-{% endif %}
 
-</body>
-<script type="application/javascript">
-    $(document).ready(function () {
-        $("#id_tweet").val("#{{ campaign.campaign_data }}"); //hashtag part
+        #input-submit:hover {
+            color: #FFF;
+            background-color: rgba(255, 105, 55, 0.66);
+        }
 
-    });
-</script>
-</html>
+    </style>
+{% endblock %}
+
+{% block slider %}{% endblock %}
+
+{% block content %}
+    <section class="post post_format_standard postLeft no_margin post-429 page type-page status-publish hentry">
+        <article class="post_content">
+            <div class="post_text_area" itemprop="articleBody">
+                <div class="sc_section  margin_top_large margin_bottom_big">
+                    <div class="main">
+                        <h2 class="sc_title_align_center sc_title sc_title_underline  color_1"
+                            style="text-align:center;">Social Data</h2>
+
+                        <div class="sc_content main  margin_bottom_middle sc_aligncenter text_styling"
+                             style="font-size:16px;line-height:28px;"> Do not miss the privilege<br/>
+                            Share Ads!
+                        </div>
+                        <div class="dark sc_contact_form sc_contact_form_contact  margin_top_middle"
+                             style="margin-right:12%;margin-left:12%;">
+                            {% if campaign.campaign_type == '0' %}
+                                <div id="retweet">
+                                    {{ html_message_code|safe|escape }}
+                                    <span class="sc_button sc_button_style_accent_2 sc_button_size_medium squareButton accent_2 medium" style="margin-right:5px;margin-bottom:10px;">
+                                        <a href="/publisher/publisher_join_campaign_retweet_campaign/{{ campaign.id }}">Join
+                                        campaign and retweet</a>
+                                    </span>
+
+                                </div>
+                            {% elif campaign.campaign_type == '1' %}
+                                {% if form.errors %}
+                                    <p>{{ form.errors }}</p>
+                                {% endif %}
+                                <form method='POST'
+                                      action="/publisher/publisher_join_campaign_share_hashtag/{{ campaign.id }}">
+                                    {% csrf_token %}
+                                    {{ form }}
+                                    <input id="tweet_but" type="submit" class="button selected submit" value="Tweetle">
+                                </form>
+
+                            {% elif campaign.campaign_type == '4' %}
+                                <a class="twitter-timeline"
+                                   href="https://twitter.com/{{ campaign.campaign_data }}"
+                                   data-widget-id="565497260050763776"
+                                   data-screen-name="{{ campaign.campaign_data }}"
+                                   data-show-replies="false"
+                                   data-tweet-limit="5">
+                                    Tweets by @{{ campaign.campaign_data }}
+                                </a>
+                                <script>!function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                                    if (!d.getElementById(id)) {
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = p + "://platform.twitter.com/widgets.js";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }
+                                }(document, "script", "twitter-wjs");</script>
+                                <span class="sc_button sc_button_style_accent_2 sc_button_size_medium squareButton accent_2 medium" style="margin-right:5px;margin-bottom:10px;">
+                                        <a href="/publisher/publisher_join_campaign_follow_campaign/{{ campaign.id }}">Join
+                                    campaign and follow</a>
+                                    </span>
+
+                            {% elif campaign.campaign_type == '2' %}
+                                {% if form.errors %}
+                                    <p>{{ form2.errors }}</p>
+                                {% endif %}
+                                <form method='POST'
+                                      action="/publisher/publisher_join_campaign_share_campaign/{{ campaign.id }}">
+                                    {% csrf_token %}
+                                    {{ form2 }}
+                                    <input type="submit" value="Share">
+                                </form>
+                            {% else %}
+                                <div id="fb-root"></div>
+                                <script>(function (d, s, id) {
+                                    var js, fjs = d.getElementsByTagName(s)[0];
+                                    if (d.getElementById(id)) return;
+                                    js = d.createElement(s);
+                                    js.id = id;
+                                    js.src = "//connect.facebook.net/tr_TR/sdk.js#xfbml=1&appId=1467336330221256&version=v2.0";
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }(document, 'script', 'facebook-jssdk'));</script>
+                                <div class="fb-like-box"
+                                     data-href="https://www.facebook.com/{{ campaign.campaign_data }}"
+                                     data-colorscheme="light"
+                                     data-show-faces="true" data-header="true" data-stream="false"
+                                     data-show-border="true"></div>
+                                <span class="sc_button sc_button_style_accent_2 sc_button_size_medium squareButton accent_2 medium" style="margin-right:5px;margin-bottom:10px;">
+                                        <a href="/publisher/publisher_join_campaign_like_campaign/{{ campaign.id }}">Control</a>
+                                    </span>
+
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+                <div class="tagsWrap">
+
+
+                </div>
+
+            </div>
+            <!-- </div> class="post_text_area" itemprop="articleBody"> -->
+        </article>
+        <!-- 		</article> class="post_content"> -->
+    </section>
+    <!-- 	</section> class="post post_format_standard postLeft no_margin post-429 page type-page status-publish hentry"> -->
+    <!-- Post/page views count increment -->
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $("#id_tweet").val("#{{ campaign.campaign_data }}"); //hashtag part
+
+        });
+    </script>
+
+{% endblock %}
+
+{% block script %}{% endblock %}

@@ -30,7 +30,7 @@ def new_publisher(request):
     if request.method == 'POST':
         form = user_form(request.POST)
         publisher_form = new_publisher_form(request.POST)
-        if form.is_valid() and publisher_form.is_valid():
+        if publisher_form.is_valid():
             username = request.POST.get('username')
             password = request.POST.get('password')
             email = request.POST.get('email')
@@ -53,6 +53,7 @@ def new_publisher(request):
             mailgun_operator.send_mail_with_html(email_to=member_user_auth.email, template_name='mail_user_activation.html', context=context, subject='Activation')
 
             return HttpResponseRedirect('/accounts/login/')
+        print publisher_form.errors
     return render_to_response('new_publisher.html', locals(), context_instance=RequestContext(request))
 
 @login_required
@@ -93,6 +94,17 @@ def publisher_social_data(request):
         publisher = Publisher.objects.get(user=request.user)
     except:
         return HttpResponseRedirect('/sorry')
+
+    facebook = Social_Data.objects.filter(publisher=publisher, account_type='0')
+    twitter = Social_Data.objects.filter(publisher=publisher, account_type='1')
+    if not facebook.exists():
+        facebook = None
+    else:
+        facebook = facebook.last()
+    if not twitter.exists():
+        twitter = None
+    else:
+        twitter = twitter.last()
     return render_to_response('publisher_social_data.html', locals(), context_instance=RequestContext(request))
 
 @csrf_exempt
@@ -210,6 +222,8 @@ def publisher_join_campaign_retweet_campaign(request, campaign_id):
         api.PostRetweet(original_id=campaign.campaign_data)
         published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=campaign.campaign_data)
         published_advert.save()
+        campaign.total_joined_publisher += 1
+        campaign.save()
     except Exception as e:
         exception = e
         return HttpResponseRedirect('/sorry')
@@ -239,6 +253,8 @@ def publisher_join_campaign_share_hashtag(request, campaign_id):
                 api.PostUpdate(status=str(tweet)+campaign.campaign_data)
                 published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=api.GetUserTimeline(count=1)[0].id)
                 published_advert.save()
+                campaign.total_joined_publisher += 1
+                campaign.save()
             except Exception as e:
                 print e
                 return HttpResponseRedirect('/sorry')
@@ -263,6 +279,8 @@ def publisher_join_campaign_follow_campaign(request, campaign_id):
         api.CreateFriendship(screen_name=campaign.campaign_data)
         published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=api.GetUser(screen_name=campaign.campaign_data).id)
         published_advert.save()
+        campaign.total_joined_publisher += 1
+        campaign.save()
     except Exception as e:
         print e
         return HttpResponseRedirect('/sorry')
@@ -289,6 +307,8 @@ def publisher_join_campaign_share_campaign(request, campaign_id):
                 facebook.set('me/feed', message=str(post_text)+' '+str(campaign.campaign_data), url=campaign.campaign_data)
                 published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=facebook.get('me/links')['data'][0]['link'])
                 published_advert.save()
+                campaign.total_joined_publisher += 1
+                campaign.save()
             except Exception as e:
                 print e
                 return HttpResponseRedirect('/sorry')
@@ -311,6 +331,8 @@ def publisher_join_campaign_like_campaign(request, campaign_id):
         if last_liked_page_id == advertiser_page_id:
             published_advert = Published_Adverts(social_data=account, campaign=campaign, message_link=advertiser_page_id)
             published_advert.save()
+            campaign.total_joined_publisher += 1
+            campaign.save()
         else:
             return HttpResponseRedirect('/publisher/publisher_join_campaign/' + str(campaign_id))
     except:

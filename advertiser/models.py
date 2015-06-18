@@ -49,7 +49,7 @@ class Campaign(models.Model):
     campaign_photo = models.ImageField(null=True, blank=True, upload_to="campaign_photo/")
     total_joined_publisher = models.PositiveIntegerField(default=0, editable=False)
     active = models.BooleanField(default=False, editable=False)
-    end_date = models.DateTimeField()
+    end_date = models.DateField(null=True, blank=True)
     cdate = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):

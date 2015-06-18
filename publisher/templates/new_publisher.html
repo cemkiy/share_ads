@@ -85,7 +85,9 @@
                                 </div>
                                 <div class="result sc_infobox">
                                     {% if form.errors %}
-                                        <p>form.errors</p>
+                                        <p>{{ form.errors }}</p>
+                                    {% elif publisher_form.errors %}
+                                        <p>{{ publisher_form.errors }}</p>
                                     {% endif %}
                                 </div>
 

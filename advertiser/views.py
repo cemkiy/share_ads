@@ -1,3 +1,4 @@
+import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext, Context
@@ -21,7 +22,7 @@ def new_advertiser(request):
     if request.method == 'POST':
         form = user_form(request.POST)
         advertiser_form = new_advertiser_form(request.POST)
-        if form.is_valid() and advertiser_form.is_valid():
+        if advertiser_form.is_valid():
             username = request.POST.get('username')
             password = request.POST.get('password')
             email = request.POST.get('email')
@@ -56,11 +57,13 @@ def new_campaign(request):
     form = new_campaign_form(initial={'advertiser': advertiser, 'active': False})
     if request.method == 'POST':
         form = new_campaign_form(request.POST, request.FILES)
+        print request.POST.get('end_date')
         if form.is_valid():
             create_campaign = form.save()
             advertiser_payment = Advertiser_Payment(advertiser=advertiser, payment_status='0', campaign=create_campaign)
             advertiser_payment.save()
             return HttpResponseRedirect('/payment_system/advertiser_payment/' + str(create_campaign.id))
+        print form.errors
 
     return render_to_response('new_campaign.html', locals(), context_instance=RequestContext(request))
 

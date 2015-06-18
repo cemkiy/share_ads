@@ -1,12 +1,99 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<p>{{ campaign.title }}</p>
-<p>{{ campaign.category}}</p>
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
 
-</body>
-</html>
+{% block head %}
+
+    <style type="text/css">
+        #input-submit {
+            color: #FFF;
+            display: block;
+            position: relative;
+            font-size: 15px;
+            font-weight: 500;
+            background-color: #FA6839;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0px 30px;
+            vertical-align: middle;
+            z-index: 1;
+            border: medium none;
+            border-radius: 31px;
+            overflow: visible;
+            margin: 7px 0px;
+            height: 53px;
+            line-height: 53px;
+        }
+
+        #input-submit:hover {
+            color: #FFF;
+            background-color: rgba(255, 105, 55, 0.66);
+        }
+
+    </style>
+{% endblock %}
+
+{% block slider %}{% endblock %}
+
+{% block content %}
+    <section class="post post_format_standard postLeft no_margin post-429 page type-page status-publish hentry">
+        <article class="post_content">
+            <div class="post_text_area" itemprop="articleBody">
+                <div class="sc_section  margin_top_large margin_bottom_big">
+                    <div class="main">
+                        <h2 class="sc_title_align_center sc_title sc_title_underline  color_1"
+                            style="text-align:center;">Campaign Detail</h2>
+
+                        <div class="sc_content main  margin_bottom_middle sc_aligncenter text_styling"
+                             style="font-size:16px;line-height:28px;"> Do not miss the privilege<br/>
+                            Share Ads!
+                        </div>
+                            <div class="dsidx-media">
+                            <div class="dsidx-photo"><a href="/campaign_detail/{{ campaign.id }}">
+                            <img src="/media/{{ campaign.campaign_photo }}"></a>
+                            </div>
+                            </div>
+                            <div class="dsidx-primary-data">
+                            <div class="dsidx-address"><a href="/campaign_detail/{{ campaign.id }}">
+                            {{ campaign.title }}</a>
+                            </div>
+                                <div class="dsidx-address">
+                                    {{ campaign.campaign_description }}
+                            </div>
+                            <div class="dsidx-price">
+                            {{ campaign.total_money }} TL
+                            </div>
+                            </div>
+                            <div class="dsidx-secondary-data">
+                            <div>Total Joined Publisher: {{ campaign.total_joined_publisher }}</div>
+                            <div>Category: {{ campaign.category }}</div>
+                            <div>campaign Type: {{ campaign.get_campaign_type_display }}</div>
+                            <div>End Date: {{ campaign.end_date }}</div>
+                            <div>Create Date: {{ campaign.cdate }}</div>
+                            <div>Active: Yes</div>
+                            <div>Advertiser: {{ campaign.advertiser }}</div>
+                            </div>
+                            <span class="sc_button sc_button_style_global sc_button_size_big squareButton global big" style="margin-right:5px;margin-bottom:10px;float: right;">
+                                <a href="/publisher/publisher_join_campaign/{{ campaign.id }}" class="">Join the Campaign</a>
+                            </span>
+                                <span class="sc_button sc_button_style_accent_2 sc_button_size_medium squareButton accent_2 medium" style="margin-right:5px;margin-bottom:10px;">
+                                    <a href="/joined_publisher_to_a_campaign/{{ campaign.id }}" class="">Joined Publishers</a>
+                                </span>
+                    </div>
+                </div>
+                <div class="tagsWrap">
+
+
+                </div>
+
+            </div>
+            <!-- </div> class="post_text_area" itemprop="articleBody"> -->
+        </article>
+        <!-- 		</article> class="post_content"> -->
+    </section>
+    <!-- 	</section> class="post post_format_standard postLeft no_margin post-429 page type-page status-publish hentry"> -->
+    <!-- Post/page views count increment -->
+
+{% endblock %}
+
+{% block script %}{% endblock %}
